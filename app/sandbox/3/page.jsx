@@ -3,7 +3,7 @@
 
 import Image from "next/image";
 import Link from 'next/link'
-import React, { useRef, useEffect, useState, useCallback } from "react";
+import React, { useRef, useEffect, useState, useCallback, useLayoutEffect} from "react";
 import {
   FaApple,
   FaAmazon,
@@ -39,7 +39,7 @@ import { SplitText } from "gsap/SplitText";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue, useAnimationFrame } from "framer-motion";
 
 
 export default function Page() {
@@ -87,29 +87,102 @@ export default function Page() {
    SECTIONS
 ========================= */
 function Hero() {
-  return (
-    <section className="relative min-h-[100svh] text-white overflow-hidden">
+  const heroRef = useRef(null);
 
-      {/* ===== BACKGROUND IMAGE ===== */}
-      <div className="absolute inset-0">
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out" }
+      });
+
+      // Background depth (slow drift)
+      gsap.fromTo(
+        ".hero-bg",
+        { scale: 1.08, y: 40 },
+        { scale: 1, y: 0, duration: 2.2, ease: "power2.out" }
+      );
+
+      // Overlay subtle opacity shift
+      gsap.fromTo(
+        ".hero-overlay",
+        { opacity: 0.7 },
+        { opacity: 1, duration: 1.4 }
+      );
+
+      // Header fade
+      tl.from(".hero-header", {
+        opacity: 0,
+        y: -30,
+        duration: 0.9
+      });
+
+      // Nav stagger
+      tl.from(".hero-nav-item", {
+        opacity: 0,
+        y: -15,
+        stagger: 0.08,
+        duration: 0.6
+      }, "-=0.5");
+
+      // Poni
+      tl.from(".hero-poni", {
+        opacity: 0,
+        y: 25,
+        duration: 0.8
+      }, "-=0.4");
+
+      // Headline mask reveal
+      tl.from(".hero-title-line", {
+        yPercent: 100,
+        stagger: 0.15,
+        duration: 1.1
+      }, "-=0.4");
+
+      // Subtext
+      tl.from(".hero-sub", {
+        opacity: 0,
+        y: 25,
+        duration: 0.9
+      }, "-=0.6");
+
+      // CTA group
+      tl.from(".hero-cta", {
+        opacity: 0,
+        y: 20,
+        duration: 0.8
+      }, "-=0.6");
+
+    }, heroRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section
+      ref={heroRef}
+      className="relative min-h-[100svh] text-white overflow-hidden"
+    >
+
+      {/* ===== BACKGROUND ===== */}
+      <div className="absolute inset-0 overflow-hidden">
         <Image
           src="/images/hero-bgg.png"
           alt="Manufacturing oversight in China"
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          className="object-cover hero-bg"
         />
-
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/50 hero-overlay" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/35 to-transparent" />
       </div>
 
-      {/* ===== CONTENT WRAPPER ===== */}
+      {/* ===== CONTENT ===== */}
       <div className="relative z-10 flex flex-col min-h-[100svh] max-w-[1600px] mx-auto px-6 sm:px-10 xl:px-16">
 
         {/* ===== HEADER ===== */}
-        <header className="flex items-center justify-between py-6 sm:py-8">
+        <header className="flex items-center justify-between py-6 sm:py-8 hero-header">
 
           <Link href="/" className="flex items-center">
             <Image
@@ -122,10 +195,10 @@ function Hero() {
           </Link>
 
           <nav className="hidden md:flex items-center gap-10 text-sm text-white/70">
-            <Link href="/" className="hover:text-white transition">Home</Link>
-            <Link href="/fashion-manufacturing" className="hover:text-white transition">Fashion</Link>
-            <Link href="/luxury-packaging" className="hover:text-white transition">Packaging</Link>
-            <Link href="#contact" className="hover:text-white transition">Contact</Link>
+            <Link href="/" className="hover:text-white transition hero-nav-item">Home</Link>
+            <Link href="/fashion-manufacturing" className="hover:text-white transition hero-nav-item">Fashion</Link>
+            <Link href="/luxury-packaging" className="hover:text-white transition hero-nav-item">Packaging</Link>
+            <Link href="#contact" className="hover:text-white transition hero-nav-item">Contact</Link>
           </nav>
 
           <Link
@@ -135,45 +208,41 @@ function Hero() {
             Get Your PI
             <FaArrowRight className="text-xs" />
           </Link>
-
         </header>
 
         {/* ===== HERO CONTENT ===== */}
         <div className="flex-1 flex items-end md:items-center pb-12 md:pb-0">
 
-          <div className="w-full max-w-full">
+          <div className="w-full">
 
-            {/* ===== PONI ===== */}
-            <div className="inline-flex items-center px-4 py-1.5 rounded-md text-[11px] sm:text-xs tracking-[0.18em] mb-6 sm:mb-8 border border-white/30 bg-white/10 uppercase">
+            <div className="hero-poni inline-flex items-center px-4 py-1.5 rounded-md text-[11px] sm:text-xs tracking-[0.18em] mb-6 sm:mb-8 border border-white/30 bg-white/10 uppercase">
               Global Manufacturing Partner
             </div>
 
-            {/* ===== HEADLINE ===== */}
             <h1
               className="font-light leading-[1.05] tracking-[-0.02em] mb-6 sm:mb-8"
               style={{ fontSize: "clamp(38px, 5vw, 64px)" }}
             >
-              Build Your Brand
-              <br />
-              Remove Manufacturing Risk
-              <br />
-              <span style={{ color: "#8C7A5B" }}>
-                Delivered Worldwide
-              </span>
+              <div className="overflow-hidden">
+                <div className="hero-title-line">Build Your Brand</div>
+              </div>
+              <div className="overflow-hidden">
+                <div className="hero-title-line">Remove Manufacturing Risk</div>
+              </div>
+              <div className="overflow-hidden">
+                <div className="hero-title-line text-[#8C7A5B]">Delivered Worldwide</div>
+              </div>
             </h1>
 
-            {/* ===== SUBTEXT ===== */}
             <p
-              className="text-white/75 leading-[1.7] mb-8 sm:mb-12 max-w-2xl"
+              className="hero-sub text-white/75 leading-[1.7] mb-8 sm:mb-12 max-w-2xl"
               style={{ fontSize: "clamp(16px, 1.4vw, 20px)" }}
             >
               Premium fashion manufacturing and luxury paper packaging —
               one accountable team from sample to door-to-door shipment.
             </p>
 
-            {/* ===== CTA GROUP ===== */}
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
-
+            <div className="hero-cta flex flex-col sm:flex-row gap-4 sm:gap-8">
               <Link
                 href="#contact"
                 className="inline-flex items-center justify-center gap-2 bg-white text-black px-8 py-3.5 rounded-lg text-sm font-medium hover:bg-neutral-200 transition"
@@ -188,13 +257,10 @@ function Hero() {
               >
                 View Process
               </Link>
-
             </div>
 
           </div>
-
         </div>
-
       </div>
     </section>
   );
@@ -203,6 +269,10 @@ function Hero() {
 
 
 function ClientsMarquee() {
+  const trackRef = useRef(null);
+  const x = useMotionValue(0);
+  const segmentWidthRef = useRef(0);
+
   const logos = [
     "/clients/1-1-removebg-preview.png",
     "/clients/3-removebg-preview.png",
@@ -221,9 +291,54 @@ function ClientsMarquee() {
     "/clients/VHD-white.png",
   ];
 
+  const duplicated = [...logos, ...logos];
+
+  /* =========================
+     MEASURE TRACK WIDTH
+  ========================= */
+  useLayoutEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+
+    const measure = () => {
+      const total = el.scrollWidth;
+      if (!total) return;
+      segmentWidthRef.current = total / 2;
+    };
+
+    measure();
+
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+
+    window.addEventListener("resize", measure);
+
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
+
+  /* =========================
+     INFINITE SCROLL ENGINE
+  ========================= */
+  useAnimationFrame((_, delta) => {
+    const segmentWidth = segmentWidthRef.current;
+    if (!segmentWidth) return;
+
+    const speed = 40; // px per second (ubah kalau mau lebih cepat)
+
+    let next = x.get() - (speed * delta) / 1000;
+
+    if (next <= -segmentWidth) {
+      next += segmentWidth;
+    }
+
+    x.set(next);
+  });
+
   return (
     <section className="bg-[#F3F2EF] py-20 md:py-24">
-
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 xl:px-16 text-center">
 
         <div className="text-xs tracking-[0.18em] uppercase text-neutral-600 mb-12">
@@ -232,11 +347,18 @@ function ClientsMarquee() {
 
         <div className="relative max-w-[1050px] mx-auto overflow-hidden">
 
+          {/* gradient fade kiri */}
           <div className="pointer-events-none absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-[#F3F2EF] to-transparent z-10" />
+
+          {/* gradient fade kanan */}
           <div className="pointer-events-none absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-[#F3F2EF] to-transparent z-10" />
 
-          <div className="flex min-w-max animate-marquee items-center">
-            {[...logos, ...logos].map((logo, index) => (
+          <motion.div
+            ref={trackRef}
+            style={{ x }}
+            className="flex items-center"
+          >
+            {duplicated.map((logo, index) => (
               <div
                 key={index}
                 className="flex-shrink-0 mx-14 flex items-center justify-center"
@@ -250,69 +372,135 @@ function ClientsMarquee() {
                 />
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
       </div>
-
-      <style jsx>{`
-        @keyframes marquee {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
-        }
-
-        .animate-marquee {
-          animation: marquee 85s linear infinite;
-        }
-      `}</style>
-
     </section>
   );
 }
 
 
 function About() {
-  return (
-    <section className="bg-[#F3F2EF] py-24 md:py-28">
+  const sectionRef = useRef(null);
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 75%",
+        },
+        defaults: { ease: "power2.out" },
+      });
+
+      tl.from(".about-card", {
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+      });
+
+      tl.from(".about-poni", {
+        opacity: 0,
+        y: 20,
+        duration: 0.6,
+      }, "-=0.4");
+
+      tl.from(".about-title-line", {
+        yPercent: 100,
+        stagger: 0.12,
+        duration: 0.9,
+      }, "-=0.3");
+
+      tl.from(".about-divider", {
+        scaleX: 0,
+        transformOrigin: "left center",
+        duration: 0.7,
+      }, "-=0.5");
+
+      tl.from(".about-paragraph", {
+        opacity: 0,
+        y: 20,
+        stagger: 0.08,
+        duration: 0.7,
+      }, "-=0.4");
+
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section
+      ref={sectionRef}
+      className="bg-[#F3F2EF] overflow-hidden"
+    >
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 xl:px-16">
 
-        <div className="grid grid-cols-1 md:grid-cols-[0.45fr_0.55fr] gap-12 md:gap-20 items-start">
+        {/* CARD */}
+        <div
+          className="about-card rounded-2xl border border-neutral-200 shadow-[0_12px_40px_rgba(0,0,0,0.04)] px-8 sm:px-12 md:px-16 xl:px-20 py-14 md:py-18 xl:py-20"
+          style={{
+            background: `
+              radial-gradient(
+                circle at 25% 25%,
+                rgba(255,255,255,1) 0%,
+                rgba(255,255,255,0.95) 40%,
+                rgba(245,243,239,1) 100%
+              )
+            `
+          }}
+        >
 
-          {/* LEFT */}
-          <div className="text-center md:text-left">
+          <div className="grid grid-cols-1 md:grid-cols-[0.45fr_0.55fr] gap-12 md:gap-20 items-start">
 
-            <div className="inline-flex items-center border border-neutral-300 px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium text-neutral-700 mb-8">
-              About
+            {/* LEFT */}
+            <div className="text-center md:text-left">
+
+              <div className="about-poni inline-flex items-center border border-[#8C7A5B]/40 text-[#8C7A5B] px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium mb-8">
+                About
+              </div>
+
+              <h2 className="text-[32px] sm:text-[36px] md:text-[42px] leading-[1.1] tracking-[-0.015em] font-medium text-neutral-900 mb-8">
+
+                <div className="overflow-hidden">
+                  <div className="about-title-line">
+                    Concept to Production
+                  </div>
+                </div>
+
+                <div className="overflow-hidden">
+                  <div className="about-title-line">
+                    Managed End to End
+                  </div>
+                </div>
+
+              </h2>
+
+              <div className="about-divider h-[1px] w-24 bg-neutral-300 mx-auto md:mx-0" />
+
             </div>
 
-            <h2 className="text-[32px] sm:text-[36px] md:text-[42px] leading-[1.1] tracking-[-0.015em] font-medium text-neutral-900 mb-8">
-              Concept to Production
-              <br />
-              Managed End to End
-            </h2>
+            {/* RIGHT */}
+            <div className="text-[17px] md:text-[18px] leading-[1.75] text-neutral-700">
 
-            <div className="h-[1px] w-24 bg-neutral-300 mx-auto md:mx-0" />
+              <p className="about-paragraph mb-8">
+                Alraimi is an operational manufacturing partner embedded in China’s production network.
+                We represent brands on the factory side and translate designs into production-ready
+                specifications while supervising execution from sampling to shipment.
+              </p>
 
-          </div>
+              <p className="about-paragraph mb-10">
+                Quality control, bulk production, and international logistics are managed as one
+                continuous process so brands are not left navigating factories, timelines,
+                or supplier communication alone.
+              </p>
 
-          {/* RIGHT */}
-          <div className="text-[17px] md:text-[18px] leading-[1.75] text-neutral-700">
+              <div className="about-paragraph text-sm text-neutral-500">
+                Technical specification alignment · AQL 2.5 inspections · EXW / FOB / DDP coordination
+              </div>
 
-            <p className="mb-8">
-              Alraimi is an operational manufacturing partner embedded in China’s production network.
-              We represent brands on the factory side and translate designs into production-ready
-              specifications while supervising execution from sampling to shipment.
-            </p>
-
-            <p className="mb-10">
-              Quality control, bulk production, and international logistics are managed as one
-              continuous process so brands are not left navigating factories, timelines,
-              or supplier communication alone.
-            </p>
-
-            <div className="text-sm text-neutral-500">
-              Technical specification alignment · AQL 2.5 inspections · EXW / FOB / DDP coordination
             </div>
 
           </div>
@@ -320,83 +508,167 @@ function About() {
         </div>
 
       </div>
-
     </section>
   );
 }
 
  
 function Achievements() {
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+
+      gsap.from(".achievement-card", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+        opacity: 0,
+        y: 30,
+        scale: 0.99,
+        stagger: 0.1,
+        duration: 0.8,
+        ease: "power2.out",
+      });
+
+      document.querySelectorAll(".count-number").forEach((el) => {
+        const target = parseFloat(el.dataset.target);
+
+        gsap.fromTo(
+          el,
+          { innerText: 0 },
+          {
+            innerText: target,
+            duration: 0.9,
+            ease: "power2.out",
+            snap: { innerText: 1 },
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 80%",
+            },
+            onUpdate: function () {
+              el.innerText = Math.floor(el.innerText);
+            },
+          }
+        );
+      });
+
+      gsap.from(".achievement-underline", {
+        scaleX: 0,
+        transformOrigin: "left center",
+        duration: 0.6,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+        stagger: 0.1,
+      });
+
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="bg-[#F3F2EF] py-28 md:py-32">
+    <section
+      ref={sectionRef}
+      className="bg-[#F3F2EF] py-28 md:py-32"
+    >
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 xl:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
 
-          {/* CARD 1 — DARK */}
-          <div className="bg-[#191919] text-white rounded-2xl p-8 sm:p-10 lg:p-12 aspect-auto lg:aspect-square flex flex-col justify-between">
+          {/* CARD 1 — DARK ANCHOR */}
+          <div
+            className="achievement-card text-white rounded-2xl p-8 sm:p-10 lg:p-12 aspect-auto lg:aspect-square flex flex-col justify-between"
+            style={{
+              background: `
+                radial-gradient(
+                  circle at 20% 20%,
+                  rgba(255,255,255,0.05) 0%,
+                  rgba(0,0,0,0) 60%
+                ),
+                #191919
+              `,
+              boxShadow: `
+                0 20px 50px rgba(0,0,0,0.25)
+              `
+            }}
+          >
             <div>
               <h3 className="text-[48px] sm:text-[60px] lg:text-[72px] leading-none font-normal mb-4 sm:mb-6">
-                15+
+                <span className="count-number" data-target="15">0</span>+
+                <div className="achievement-underline h-[2px] w-12 bg-[#8C7A5B] mt-3"></div>
               </h3>
-
               <p className="text-white/70 text-[15px] sm:text-[16px] max-w-xs leading-relaxed">
-                Years operating directly inside China’s factory production
-                network.
+                Years operating directly inside China’s factory production network.
               </p>
             </div>
-
             <div className="text-sm text-white/40 mt-6">
               On-Ground Coordination
             </div>
           </div>
 
-          {/* CARD 2 — IMAGE */}
-          <div className="relative rounded-2xl overflow-hidden aspect-auto lg:aspect-square">
+          {/* CARD 2 — STRONG IMAGE */}
+          <div className="achievement-card relative rounded-2xl overflow-hidden aspect-auto lg:aspect-square">
             <img
               src="https://res.cloudinary.com/djgu1bhef/image/upload/v1772376426/boxes_nx69oz.png"
-              alt="Factory"
+              alt="Packaging production"
               className="absolute inset-0 w-full h-full object-cover"
             />
-
             <div className="absolute inset-0 bg-black/30" />
-
             <div className="relative z-10 p-8 sm:p-10 lg:p-12 h-full flex flex-col justify-between text-white">
               <div>
                 <h3 className="text-[48px] sm:text-[60px] lg:text-[72px] leading-none font-normal mb-4 sm:mb-6">
-                  500K+
+                  <span className="count-number" data-target="500">0</span>K+
+                  <div className="achievement-underline h-[2px] w-16 bg-[#8C7A5B] mt-3"></div>
                 </h3>
-
                 <p className="text-white/80 text-[15px] sm:text-[16px] max-w-xs leading-relaxed">
                   Luxury packaging units delivered across international markets.
                 </p>
               </div>
-
               <div className="text-sm text-white/50 mt-6">
                 Factory → Port → Destination
               </div>
             </div>
           </div>
 
-          {/* CARD 3 — LIGHT IMAGE MODE */}
-          <div className="relative rounded-2xl overflow-hidden aspect-auto lg:aspect-square border border-[#D6D1C8]">
+          {/* CARD 3 — SOFTENED IMAGE (BALANCED) */}
+          <div className="achievement-card relative rounded-2xl overflow-hidden aspect-auto lg:aspect-square border border-[#D6D1C8]">
             <img
               src="https://res.cloudinary.com/djgu1bhef/image/upload/v1772379360/clothes_s6ivam.png"
               alt="Apparel production"
               className="absolute inset-0 w-full h-full object-cover"
             />
 
+            {/* Tone-down overlay */}
+            <div className="absolute inset-0 bg-[#F3F2EF]/60" />
+
+            {/* Very subtle depth layer */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background: `
+                  radial-gradient(
+                    circle at 80% 20%,
+                    rgba(255,255,255,0.5) 0%,
+                    rgba(255,255,255,0) 60%
+                  )
+                `
+              }}
+            />
+
             <div className="relative z-10 p-8 sm:p-10 lg:p-12 h-full flex flex-col justify-between">
               <div>
                 <h3 className="text-[48px] sm:text-[60px] lg:text-[72px] leading-none font-normal mb-4 sm:mb-6 text-neutral-900">
-                  100K+
+                  <span className="count-number" data-target="100">0</span>K+
+                  <div className="achievement-underline h-[2px] w-14 bg-[#8C7A5B] mt-3"></div>
                 </h3>
-
                 <p className="text-neutral-600 text-[15px] sm:text-[16px] max-w-xs leading-relaxed">
-                  Apparel units manufactured across structured production runs
-                  with controlled inspection checkpoints.
+                  Apparel units manufactured across structured production runs with controlled inspection checkpoints.
                 </p>
               </div>
-
               <div className="text-sm text-neutral-500 mt-6">
                 Fit Control · Inline QC · AQL 2.5
               </div>
@@ -412,16 +684,65 @@ function Achievements() {
 
 
 function Services() {
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+  
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 75%",
+        },
+        defaults: { ease: "power2.out" }
+      });
+  
+      // 1️⃣ HEADER
+      tl.from(".services-header", {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+      });
+  
+      // 2️⃣ LINE + HUB TOGETHER
+      tl.from(".services-accent", {
+        scaleX: 0,
+        transformOrigin: "center",
+        duration: 0.7,
+      });
+  
+      tl.from(".service-hub", {
+        opacity: 0,
+        scale: 0.9,
+        duration: 0.7,
+      }, "<"); // ← penting: "<" = start at same time
+  
+      // 3️⃣ SERVICES OPTIONS
+      tl.from([".service-left", ".service-right"], {
+        opacity: 0,
+        y: 30,
+        stagger: 0.12,
+        duration: 0.8,
+      }, "-=0.1");
+  
+    }, sectionRef);
+  
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="bg-[#F3F2EF] pt-24 pb-36 md:pt-24 md:pb-48">
+    <section
+      ref={sectionRef}
+      className="bg-[#F3F2EF] pt-24 pb-36 md:pt-24 md:pb-48 overflow-hidden"
+    >
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 xl:px-16">
 
         {/* HEADER */}
-        <div className="mb-14 md:mb-16 text-center max-w-xl mx-auto">
+        <div className="services-header mb-14 md:mb-16 text-center max-w-xl mx-auto">
 
-          <div className="inline-flex items-center border border-neutral-300 px-5 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium text-neutral-700 mb-6">
-            Services
-          </div>
+        <div className="inline-flex items-center border border-[#8C7A5B]/40 px-5 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium text-[#8C7A5B] mb-6">
+  Services
+</div>
 
           <h2 className="text-[32px] sm:text-[38px] lg:text-[42px] leading-[1.1] tracking-[-0.015em] font-medium text-neutral-900 mb-5">
             Services Overview
@@ -431,8 +752,7 @@ function Services() {
             Built to Support Your Brand’s Growth with Reliable Production
           </p>
 
-          {/* GOLD ACCENT LINE */}
-          <div className="mt-8 h-[1px] w-16 bg-[#8C7A5B] mx-auto" />
+          <div className="services-accent mt-8 h-[1px] w-16 bg-[#8C7A5B] mx-auto" />
         </div>
 
         {/* STRUCTURE */}
@@ -441,11 +761,11 @@ function Services() {
           {/* LEFT */}
           <a
             href="/fashion-manufacturing"
-            className="group relative max-w-md text-center lg:text-right transition"
+            className="service-left group relative max-w-md text-center lg:text-right"
           >
-            <div className="hidden lg:block absolute top-1/2 right-[-160px] w-[140px] h-[1px] bg-neutral-300 transition group-hover:bg-[#8C7A5B]" />
+            <div className="hidden lg:block absolute top-1/2 right-[-160px] w-[140px] h-[1px] bg-neutral-300" />
 
-            <h3 className="text-[28px] sm:text-[32px] lg:text-[34px] leading-[1.1] font-medium text-neutral-800 transition-all duration-300 group-hover:text-[#8C7A5B] group-hover:translate-x-1">
+            <h3 className="text-[28px] sm:text-[32px] lg:text-[34px] leading-[1.1] font-medium text-neutral-800">
               Fashion Manufacturing
             </h3>
 
@@ -454,36 +774,80 @@ function Services() {
               with structured fit control and AQL inspection.
             </p>
 
-            <span className="inline-block mt-6 sm:mt-8 text-sm text-neutral-700 transition-all duration-300 group-hover:translate-x-1">
+            <span className="inline-block mt-6 sm:mt-8 text-sm text-neutral-700">
               View Service →
             </span>
 
-            <div className="lg:hidden mx-auto mt-10 w-[1px] h-12 bg-neutral-300 transition group-hover:bg-[#8C7A5B]" />
+            <div className="lg:hidden mx-auto mt-10 w-[1px] h-12 bg-neutral-300" />
           </a>
 
-          {/* CENTER HUB */}
-          <div className="relative flex flex-col items-center justify-center">
-            <div className="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px] lg:w-[220px] lg:h-[220px] rounded-full border border-neutral-300 flex items-center justify-center bg-white">
-              <div className="w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] lg:w-[170px] lg:h-[170px] rounded-full bg-[#191919] flex items-center justify-center">
-                <img
-                  src="/images/alraimi-logo-white-1.png"
-                  alt="Alraimi Logo"
-                  className="w-10 sm:w-12 lg:w-14 opacity-90"
-                />
-              </div>
-            </div>
-          </div>
+{/* CENTER HUB */}
+<div className="service-hub relative flex flex-col items-center justify-center">
+
+  {/* OUTER RING */}
+  <div
+    className="
+      w-[160px] h-[160px]
+      sm:w-[200px] sm:h-[200px]
+      lg:w-[220px] lg:h-[220px]
+      rounded-full
+      border border-neutral-300
+      flex items-center justify-center
+      bg-white
+    "
+    style={{
+      boxShadow: `
+        0 12px 30px rgba(0,0,0,0.06),
+        0 4px 8px rgba(0,0,0,0.04)
+      `
+    }}
+  >
+
+    {/* INNER CORE */}
+    <div
+      className="
+        w-[120px] h-[120px]
+        sm:w-[150px] sm:h-[150px]
+        lg:w-[170px] lg:h-[170px]
+        rounded-full
+        flex items-center justify-center
+      "
+      style={{
+        background: `
+          radial-gradient(
+            circle at 30% 30%,
+            rgba(40,40,40,1) 0%,
+            rgba(25,25,25,1) 60%,
+            rgba(15,15,15,1) 100%
+          )
+        `,
+        boxShadow: `
+          inset 0 2px 6px rgba(255,255,255,0.08),
+          0 8px 18px rgba(0,0,0,0.25)
+        `
+      }}
+    >
+      <img
+        src="/images/alraimi-logo-white-1.png"
+        alt="Alraimi Logo"
+        className="w-10 sm:w-12 lg:w-14 opacity-95"
+      />
+    </div>
+
+  </div>
+
+</div>
 
           {/* RIGHT */}
           <a
             href="/luxury-packaging"
-            className="group relative max-w-md text-center lg:text-left transition"
+            className="service-right group relative max-w-md text-center lg:text-left"
           >
-            <div className="hidden lg:block absolute top-1/2 left-[-160px] w-[140px] h-[1px] bg-neutral-300 transition group-hover:bg-[#8C7A5B]" />
+            <div className="hidden lg:block absolute top-1/2 left-[-160px] w-[140px] h-[1px] bg-neutral-300" />
 
-            <div className="lg:hidden mx-auto mb-10 w-[1px] h-12 bg-neutral-300 transition group-hover:bg-[#8C7A5B]" />
+            <div className="lg:hidden mx-auto mb-10 w-[1px] h-12 bg-neutral-300" />
 
-            <h3 className="text-[28px] sm:text-[32px] lg:text-[34px] leading-[1.1] font-medium text-neutral-800 transition-all duration-300 group-hover:text-[#8C7A5B] group-hover:-translate-x-1">
+            <h3 className="text-[28px] sm:text-[32px] lg:text-[34px] leading-[1.1] font-medium text-neutral-800">
               Luxury Packaging
             </h3>
 
@@ -492,7 +856,7 @@ function Services() {
               finishing precision, and export-ready systems.
             </p>
 
-            <span className="inline-block mt-6 sm:mt-8 text-sm text-neutral-700 transition-all duration-300 group-hover:-translate-x-1">
+            <span className="inline-block mt-6 sm:mt-8 text-sm text-neutral-700">
               View Service →
             </span>
           </a>
@@ -501,9 +865,8 @@ function Services() {
 
       </div>
     </section>
-  )
+  );
 }
-
 
 
 function HowWeWork() {
@@ -539,13 +902,13 @@ function HowWeWork() {
   ]
 
   return (
-    <section className="bg-[#1c1c1c] text-white py-28">
+    <section className="relative text-white py-28 overflow-hidden bg-[#1b1b1b]">
 
-      <div className="max-w-[1600px] mx-auto px-10 xl:px-16">
+      <div className="relative max-w-[1600px] mx-auto px-10 xl:px-16">
 
         {/* PONI */}
         <div>
-          <div className="inline-flex items-center border border-white/15 px-6 py-2 rounded-md text-xs tracking-[0.18em] uppercase font-medium text-white/60">
+          <div className="inline-flex items-center border border-[#8C7A5B]/40 px-6 py-2 rounded-md text-xs tracking-[0.18em] uppercase font-medium text-[#8C7A5B]">
             Process
           </div>
         </div>
@@ -570,10 +933,23 @@ function HowWeWork() {
                   key={i}
                   className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] pr-8"
                 >
-                  <div className="group rounded-2xl border border-white/10 bg-[#242424] p-12 min-h-[420px] flex flex-col transition-colors duration-300 hover:border-[#8C7A5B]/40">
+                  <div className="group relative rounded-2xl border border-white/10 bg-[#232323] p-12 min-h-[420px] flex flex-col transition-all duration-300 hover:border-[#8C7A5B]/40 overflow-hidden shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
+
+                    {/* INDUSTRIAL TEXTURE */}
+                    <div
+                      className="absolute inset-0 pointer-events-none"
+                      style={{
+                        backgroundImage:
+                          "url('https://res.cloudinary.com/djgu1bhef/image/upload/v1772523788/ChatGPT_Image_Mar_3_2026_02_42_56_PM_euyhsb.png')",
+                        backgroundSize: "500px",
+                        backgroundRepeat: "repeat",
+                        opacity: 0.15,
+                        filter: "contrast(140%) brightness(115%)"
+                      }}
+                    />
 
                     {/* ICON */}
-                    <div className="w-12 h-12 flex items-center justify-center rounded-lg border border-white/10 bg-[#2a2a2a]">
+                    <div className="relative z-10 w-12 h-12 flex items-center justify-center rounded-lg border border-white/10 bg-[#2a2a2a]">
                       <Icon
                         size={22}
                         strokeWidth={1.5}
@@ -582,7 +958,7 @@ function HowWeWork() {
                     </div>
 
                     {/* TEXT */}
-                    <div className="mt-auto">
+                    <div className="relative z-10 mt-auto">
                       <h4 className="text-[26px] leading-[1.25] font-medium text-white transition-colors duration-300 group-hover:text-[#8C7A5B]">
                         {step.title}
                       </h4>
@@ -605,11 +981,11 @@ function HowWeWork() {
             <button
               key={index}
               onClick={() => emblaApi && emblaApi.scrollTo(index)}
-              className={`w-2.5 h-2.5 rounded-full transition ${
+              className={`transition ${
                 index === selectedIndex
-                  ? "bg-[#8C7A5B]"
-                  : "bg-white/30 hover:bg-white/60"
-              }`}
+                  ? "w-3 h-3 bg-[#8C7A5B]"
+                  : "w-2.5 h-2.5 bg-white/30 hover:bg-white/60"
+              } rounded-full`}
             />
           ))}
         </div>
@@ -622,6 +998,8 @@ function HowWeWork() {
 
 
 function Projects() {
+  const sectionRef = useRef(null);
+
   const projects = [
     {
       title: "Magnetic Gift Boxes",
@@ -646,15 +1024,10 @@ function Projects() {
       image:
         "https://res.cloudinary.com/djgu1bhef/image/upload/v1772376971/image_2026-02-27_13-50-31_c3hwyn.png",
     },
-  ]
-
-  const Ghost = () => (
-    <div className="w-[420px] h-[250px] rounded-2xl border border-black/30 z-0" />
-  )
+  ];
 
   const Card = ({ project }) => (
-    <div
-      className="
+    <div className="project-card
         relative
         w-full
         md:w-[28vw]
@@ -666,8 +1039,7 @@ function Projects() {
         shadow-[0_8px_30px_rgba(0,0,0,0.06)]
         md:shadow-none
         z-10
-      "
-    >
+      ">
       <img
         src={project.image}
         alt={project.title}
@@ -704,11 +1076,43 @@ function Projects() {
         </div>
       </div>
     </div>
-  )
+  );
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+        defaults: { ease: "power2.out" }
+      });
+
+      // Header
+      tl.from(".projects-header", {
+        opacity: 0,
+        y: 20,
+        duration: 0.7,
+      });
+
+      // Cards (minimal rise)
+      tl.from(".project-card", {
+        opacity: 0,
+        y: 30,
+        stagger: 0.1,
+        duration: 0.8,
+      }, "-=0.3");
+
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
-      className="bg-[#F3F2EF] py-[clamp(60px,8vw,96px)]"
+      ref={sectionRef}
+      className="bg-[#F3F2EF] py-[clamp(60px,8vw,96px)] overflow-hidden"
       style={{
         "--card-w": "min(28vw, 420px)",
         "--card-h": "calc(var(--card-w) * 1.25)",
@@ -717,48 +1121,37 @@ function Projects() {
     >
       <div className="max-w-[1600px] mx-auto px-[clamp(20px,4vw,40px)]">
 
-{/* HEADER */}
-<div className="mb-[clamp(40px,6vw,64px)] text-center">
-  <div
-    className="
-      inline-flex
-      items-center
-      border border-neutral-300
-      px-[clamp(14px,2.5vw,18px)]
-      py-[clamp(4px,0.8vw,6px)]
-      rounded-md
-      uppercase
-      font-medium
-      text-neutral-700
-      mb-[clamp(16px,3vw,24px)]
-    "
-    style={{
-      fontSize: "clamp(10px, 1.2vw, 12px)",
-      letterSpacing: "0.18em",
-    }}
-  >
-    Projects
-  </div>
-
-  <h2
-    className="font-medium text-neutral-900 leading-[1.08] tracking-[-0.02em]"
-    style={{
-      fontSize: "clamp(26px, 4.5vw, 48px)",
-    }}
-  >
-    Project Snapshot
-  </h2>
-
-  <p
-    className="mx-auto text-neutral-600 leading-[1.7] mt-[clamp(16px,2.5vw,24px)] max-w-[720px]"
-    style={{
-      fontSize: "clamp(16px, 2vw, 18px)",
-    }}
-  >
-    A selection of completed fashion and packaging work managed from
-    development through delivery. Below are typical scopes and outcomes.
-  </p>
+        {/* HEADER */}
+        <div className="projects-header mb-[clamp(40px,6vw,64px)] text-center">
+        <div
+  className="inline-flex items-center border border-[#8C7A5B]/40 px-[clamp(14px,2.5vw,18px)] py-[clamp(4px,0.8vw,6px)] rounded-md uppercase font-medium text-[#8C7A5B] mb-[clamp(16px,3vw,24px)]"
+  style={{
+    fontSize: "clamp(10px, 1.2vw, 12px)",
+    letterSpacing: "0.18em",
+  }}
+>
+  Projects
 </div>
+
+          <h2
+            className="font-medium text-neutral-900 leading-[1.08] tracking-[-0.02em]"
+            style={{
+              fontSize: "clamp(26px, 4.5vw, 48px)",
+            }}
+          >
+            Project Snapshot
+          </h2>
+
+          <p
+            className="mx-auto text-neutral-600 leading-[1.7] mt-[clamp(16px,2.5vw,24px)] max-w-[720px]"
+            style={{
+              fontSize: "clamp(16px, 2vw, 18px)",
+            }}
+          >
+            A selection of completed fashion and packaging work managed from
+            development through delivery. Below are typical scopes and outcomes.
+          </p>
+        </div>
 
         {/* DESKTOP / TABLET */}
         <div
@@ -767,15 +1160,10 @@ function Projects() {
             height: "calc(var(--card-h) * 2 + var(--gap))",
           }}
         >
-
-          
-
-          {/* TOP */}
           <div className="absolute left-1/2 -translate-x-1/2 z-10" style={{ top: "0" }}>
             <Card project={projects[1]} />
           </div>
 
-          {/* BOTTOM */}
           <div
             className="absolute left-1/2 -translate-x-1/2 z-10"
             style={{ top: "calc(var(--card-h) + var(--gap))" }}
@@ -783,7 +1171,6 @@ function Projects() {
             <Card project={projects[2]} />
           </div>
 
-          {/* LEFT */}
           <div
             className="absolute left-0 z-10"
             style={{ top: "calc(var(--card-h) / 2 + var(--gap) / 2)" }}
@@ -791,14 +1178,12 @@ function Projects() {
             <Card project={projects[0]} />
           </div>
 
-          {/* RIGHT */}
           <div
             className="absolute right-0 z-10"
             style={{ top: "calc(var(--card-h) / 2 + var(--gap) / 2)" }}
           >
             <Card project={projects[3]} />
           </div>
-
         </div>
 
         {/* MOBILE */}
@@ -810,7 +1195,7 @@ function Projects() {
 
       </div>
     </section>
-  )
+  );
 }
 
 
@@ -863,23 +1248,102 @@ function CookieConsent() {
 }
 
 function Leadership() {
+  const sectionRef = useRef(null);
+  const quoteRef = useRef(null);
+
+  useEffect(() => {
+    let split;
+
+    const ctx = gsap.context(() => {
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+        defaults: { ease: "power2.out" }
+      });
+
+      tl.from(".leadership-card", {
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+      });
+
+      split = new SplitText(quoteRef.current, {
+        type: "lines",
+        linesClass: "split-line"
+      });
+
+      split.lines.forEach(line => {
+        const wrapper = document.createElement("div");
+        wrapper.style.overflow = "hidden";
+        line.parentNode.insertBefore(wrapper, line);
+        wrapper.appendChild(line);
+      });
+
+      tl.from(split.lines, {
+        yPercent: 100,
+        opacity: 0,
+        stagger: 0.2,
+        duration: 0.8,
+      }, "-=0.4");
+
+      tl.from(".leadership-identity", {
+        opacity: 0,
+        y: 20,
+        duration: 0.7,
+      }, "-=0.3");
+
+    }, sectionRef);
+
+    return () => {
+      if (split) split.revert();
+      ctx.revert();
+    };
+
+  }, []);
+
   return (
-    <section className="bg-gradient-to-r from-[#F3F2EF] via-[#F3F2EF] to-[#ECEAE6] py-16 md:py-24 xl:py-28">
+    <section
+      ref={sectionRef}
+      className="bg-[#F3F2EF] py-20 md:py-28 overflow-hidden"
+    >
       <div className="max-w-[1600px] mx-auto px-6 md:px-10 xl:px-16">
 
-        <div className="rounded-2xl bg-white border border-neutral-200 px-6 py-10 sm:px-10 sm:py-14 md:px-16 md:py-16 xl:px-20 xl:py-20 shadow-[0_10px_30px_rgba(0,0,0,0.03),0_30px_80px_rgba(0,0,0,0.04)]">
+        <div
+          className="leadership-card rounded-2xl border border-neutral-200 shadow-[0_12px_40px_rgba(0,0,0,0.04)] px-8 sm:px-12 md:px-16 xl:px-20 py-14 md:py-16 xl:py-20"
+          style={{
+            background: `
+              radial-gradient(
+                circle at 20% 20%,
+                rgba(255,255,255,1) 0%,
+                rgba(255,255,255,0.96) 35%,
+                rgba(245,243,239,1) 100%
+              )
+            `
+          }}
+        >
 
-          <div className="inline-flex items-center border border-neutral-300 px-4 py-2 rounded-md text-[10px] sm:text-xs tracking-[0.18em] uppercase font-medium text-neutral-500 mb-8 md:mb-10">
+          <div className="inline-flex items-center border border-[#8C7A5B]/40 text-[#8C7A5B] px-4 py-2 rounded-md text-[10px] sm:text-xs tracking-[0.18em] uppercase font-medium mb-8 md:mb-10">
             Managing Director
           </div>
 
-          <h2 className="text-neutral-900 text-[22px] sm:text-[26px] md:text-[32px] xl:text-[36px] leading-[1.6] md:leading-[1.4] tracking-[-0.01em] max-w-full md:max-w-[880px]">
+          <h2
+            ref={quoteRef}
+            className="text-neutral-900 text-[22px] sm:text-[26px] md:text-[32px] xl:text-[36px] leading-[1.6] md:leading-[1.4] tracking-[-0.01em] max-w-full md:max-w-[880px]"
+          >
             “If something leaves our factory, it carries our name. I review final production and shipment release myself. If it’s not right, it doesn’t ship.”
           </h2>
 
-          <div className="mt-10 md:mt-14 xl:mt-16 flex items-center gap-4 sm:gap-6">
-            <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-2xl overflow-hidden border border-neutral-200">
-              <img src="/images/haitham.png" alt="Haitham Al-Raimi" className="w-full h-full object-cover object-top" />
+          <div className="leadership-identity mt-10 md:mt-14 xl:mt-16 flex items-center gap-4 sm:gap-6">
+
+            <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl overflow-hidden border border-neutral-200">
+              <img
+                src="/images/haitham.png"
+                alt="Haitham Al-Raimi"
+                className="w-full h-full object-cover object-top"
+              />
             </div>
 
             <div>
@@ -890,13 +1354,14 @@ function Leadership() {
                 Managing Director · Alraimi Business Group
               </div>
             </div>
+
           </div>
 
         </div>
 
       </div>
     </section>
-  )
+  );
 }
 
 
@@ -912,9 +1377,9 @@ function Catalogs() {
           <div className="md:pr-6">
 
             {/* SECTION PONI */}
-            <div className="inline-flex items-center border border-neutral-300 px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium text-neutral-700 mb-6">
-              Catalogs
-            </div>
+<div className="inline-flex items-center border border-[#8C7A5B]/40 px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium text-[#8C7A5B] mb-6">
+  Catalogs
+</div>
 
             {/* HEADING */}
             <h2 className="text-[32px] sm:text-[36px] md:text-[42px] leading-[1.1] tracking-[-0.015em] font-medium text-neutral-900 mb-6">
@@ -981,88 +1446,142 @@ function Catalogs() {
 }
 
 function Gallery() {
-  const images = [
+  const sectionRef = useRef(null);
+
+  const media = [
     {
-      src: "https://res.cloudinary.com/djgu1bhef/image/upload/v1772465807/b2e3ada0b524a37a568cfc2625814946e76c8c4e_ozgzym.png",
+      src: "https://res.cloudinary.com/djgu1bhef/image/upload/v1772465805/def4681423e3409d32eed217ed901e044f62fada_rsujvm.png",
       alt: "Container port logistics",
+      type: "image",
       span: "md:col-span-8",
       height: "md:h-[420px]"
     },
     {
-      src: "https://res.cloudinary.com/djgu1bhef/image/upload/v1772465806/1da1117433e3b5c7395049766335a31856132f8f_u3cqev.png",
-      alt: "Warehouse pallet storage",
+      src: "https://www.pexels.com/download/video/6460112/",
+      alt: "Factory walkthrough",
+      type: "video",
       span: "md:col-span-4",
       height: "md:h-[420px]"
     },
     {
-      src: "https://res.cloudinary.com/djgu1bhef/image/upload/v1772465805/def4681423e3409d32eed217ed901e044f62fada_rsujvm.png",
+      src: "https://www.pexels.com/download/video/15459710/",
       alt: "Cargo loading truck",
+      type: "video",
       span: "md:col-span-5",
       height: "md:h-[380px]"
     },
     {
-      src: "https://images.unsplash.com/photo-1700716465891-9e5e9f501d7d?q=80&w=2693&auto=format&fit=crop",
+      src: "https://res.cloudinary.com/djgu1bhef/image/upload/v1772465806/1da1117433e3b5c7395049766335a31856132f8f_u3cqev.png",
       alt: "Factory production line",
+      type: "image",
       span: "md:col-span-7",
       height: "md:h-[380px]"
     },
     {
       src: "https://res.cloudinary.com/djgu1bhef/image/upload/v1772465807/b2570bd6484e6c3e6e1a75cbc0aec0fe5898e824_ra1eje.png",
       alt: "Quality inspection process",
+      type: "image",
       span: "md:col-span-3",
       height: "md:h-[340px]"
     },
     {
-      src: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1600&q=80",
+      src: "https://www.pexels.com/download/video/4620565/",
       alt: "Shipping container yard",
+      type: "video",
       span: "md:col-span-6",
       height: "md:h-[340px]"
     },
     {
       src: "https://res.cloudinary.com/djgu1bhef/image/upload/v1772465806/c9b2b9000b185f19e45ec1c468d74a3277c30736_qjels5.jpg",
       alt: "Warehouse distribution center",
+      type: "image",
       span: "md:col-span-3",
       height: "md:h-[340px]"
     }
   ];
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+        defaults: { ease: "power2.out" }
+      });
+
+      tl.from(".gallery-header", {
+        opacity: 0,
+        y: 20,
+        duration: 0.7,
+      });
+
+      tl.from(".gallery-item", {
+        opacity: 0,
+        y: 30,
+        stagger: 0.08,
+        duration: 0.8,
+      }, "-=0.3");
+
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="bg-[#F3F2EF] py-22">
+    <section
+      ref={sectionRef}
+      className="bg-[#F3F2EF] py-22 overflow-hidden"
+    >
       <div className="max-w-[1600px] mx-auto px-6 md:px-10 xl:px-16">
 
-        <div className="flex justify-center mb-16 md:mb-24">
-          <div className="inline-flex items-center border border-neutral-300 px-5 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium text-neutral-700">
+        <div className="gallery-header flex justify-center mb-16 md:mb-24">
+          <div className="inline-flex items-center border border-[#8C7A5B]/40 px-5 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium text-[#8C7A5B]">
             Gallery
           </div>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-12 gap-4 md:gap-6">
 
-          {images.map((item, index) => {
+          {media.map((item, index) => {
 
             let mobileSpan = "col-span-1";
             let mobileHeight = "h-[190px]";
 
-            // Row 1 full width
             if (index === 0) {
               mobileSpan = "col-span-2";
               mobileHeight = "h-[240px]";
             }
 
-            // Row 3 full width
             if (index === 3) {
               mobileSpan = "col-span-2";
               mobileHeight = "h-[220px]";
             }
 
             return (
-              <div key={index} className={`${mobileSpan} ${item.span}`}>
-                <div className="rounded-xl md:rounded-2xl overflow-hidden border border-black/10 md:border-black/20">
-                  <img
-                    src={item.src}
-                    alt={item.alt}
-                    className={`w-full ${mobileHeight} ${item.height} object-cover`}
-                  />
+              <div key={index} className={`gallery-item ${mobileSpan} ${item.span}`}>
+                <div className="rounded-2xl overflow-hidden border border-black/20">
+
+                  {item.type === "video" ? (
+                    <video
+                      src={item.src}
+                      className={`w-full ${mobileHeight} ${item.height} object-cover`}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      controls={false}
+                    />
+                  ) : (
+                    <img
+                      src={item.src}
+                      alt={item.alt}
+                      className={`w-full ${mobileHeight} ${item.height} object-cover`}
+                      loading="lazy"
+                    />
+                  )}
+
                 </div>
               </div>
             );
@@ -1074,6 +1593,7 @@ function Gallery() {
     </section>
   );
 }
+
 
 
  
@@ -1143,9 +1663,9 @@ function Testimonials() {
         {/* HEADER (UNCHANGED) */}
         <div className="mb-20 text-center">
 
-          <div className="inline-flex items-center border border-neutral-300 px-5 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium text-neutral-700 mb-8">
-            Testimonials
-          </div>
+        <div className="inline-flex items-center border border-[#8C7A5B]/40 px-5 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium text-[#8C7A5B] mb-8">
+  Testimonials
+</div>
 
           <h2 className="text-[42px] leading-[1.1] tracking-[-0.015em] font-medium text-neutral-900">
             What Our Customers
@@ -1331,9 +1851,9 @@ function FAQ() {
           <div>
 
             {/* SECTION PONI */}
-            <div className="inline-flex items-center border border-neutral-300 px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium text-neutral-700 mb-6">
-              FAQ
-            </div>
+            <div className="inline-flex items-center border border-[#8C7A5B]/40 px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium text-[#8C7A5B] mb-6">
+  FAQ
+</div>
 
             {/* HEADING */}
             <h2 className="text-[32px] sm:text-[36px] md:text-[42px] leading-[1.1] tracking-[-0.015em] font-medium text-neutral-900">
