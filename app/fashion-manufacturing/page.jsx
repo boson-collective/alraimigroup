@@ -99,29 +99,30 @@ export default function Page() {
 function Hero() {
   return (
     <section className="relative bg-[#F3F2EF] overflow-hidden">
-
+      
       {/* ===== DARK INDUSTRIAL BLOCK ===== */}
       <div
         className="relative text-white"
         style={{
-          background: "linear-gradient(135deg, #191919 0%, #2C2C2C 100%)"
+          background: "linear-gradient(135deg, #191919 0%, #2C2C2C 100%)",
         }}
       >
-
-        {/* HEADER (UNCHANGED STRUCTURE) */}
-        <div className="max-w-[1600px] mx-auto px-10 xl:px-16 pt-10">
+        {/* ===== HEADER ===== */}
+        <div className="max-w-[1600px] mx-auto px-6 md:px-10 xl:px-16 pt-8 md:pt-10">
           <header className="flex items-center justify-between">
-
+            
+            {/* Logo */}
             <Link href="/" className="flex items-center gap-3">
               <Image
                 src="/images/alraimi-logo-white-1.png"
-                alt="Logo"
+                alt="Alraimi Logo"
                 width={42}
                 height={38}
                 priority
               />
             </Link>
 
+            {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-12 text-sm text-white/70">
               <Link href="/" className="hover:text-white transition">
                 Home
@@ -143,23 +144,28 @@ function Hero() {
               </Link>
             </nav>
 
+            {/* Desktop CTA */}
             <Link
               href="#contact"
-              className="hidden md:inline-flex items-center px-6 py-2.5 rounded-lg text-sm font-medium transition"
-              style={{
-                backgroundColor: "#FFFFFF",
-                color: "#191919"
-              }}
+              className="hidden md:inline-flex items-center bg-white text-black px-8 py-3.5 rounded-lg text-sm font-medium transition hover:bg-neutral-200"
             >
               Get Your PI
+            </Link>
+
+            {/* Mobile CTA */}
+            <Link
+              href="#contact"
+              className="md:hidden inline-flex items-center bg-white text-black px-5 py-2.5 rounded-lg text-sm font-medium transition hover:bg-neutral-200"
+            >
+              Get PI
             </Link>
 
           </header>
         </div>
 
-        {/* HERO CONTENT */}
-        <div className="max-w-[1600px] mx-auto px-10 xl:px-16 py-24">
-
+        {/* ===== HERO CONTENT ===== */}
+        <div className="max-w-[1600px] mx-auto px-6 md:px-10 xl:px-16 py-16 md:py-24 xl:py-28">
+          
           {/* SERVICE LABEL */}
           <div className="mb-6">
             <span className="text-xs tracking-widest text-white/50">
@@ -168,10 +174,7 @@ function Hero() {
           </div>
 
           {/* HEADLINE */}
-          <h1
-            className="leading-[1.05] tracking-[-0.02em] font-light max-w-[980px]"
-            style={{ fontSize: "clamp(48px, 3.5vw, 72px)" }}
-          >
+          <h1 className="font-light leading-[1.05] tracking-[-0.02em] max-w-[980px] text-[40px] sm:text-[48px] md:text-[56px] xl:text-[72px]">
             From Tech Pack to Shipment.
             <br />
             <span style={{ color: "#8C7A5B" }}>
@@ -180,36 +183,30 @@ function Hero() {
           </h1>
 
           {/* DESCRIPTION */}
-          <p className="mt-8 text-[18px] leading-[1.7] text-white/70 max-w-[720px]">
+          <p className="mt-8 text-[16px] md:text-[18px] leading-[1.7] text-white/70 max-w-[720px]">
             Womenswear, resortwear, and activewear manufactured through
             structured sampling, measured production control, AQL inspection,
             and coordinated global delivery from our factory network in China.
           </p>
 
-          {/* CTA */}
-          <div className="mt-10 flex items-center gap-8">
+          {/* CTA GROUP */}
+          <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-8">
+            
             <Link
               href="#start"
-              className="bg-white text-black px-8 py-3.5 rounded-lg text-sm font-medium hover:bg-neutral-200 transition"
+              className="bg-white text-black px-8 py-3.5 rounded-lg text-sm font-medium transition hover:bg-neutral-200"
             >
               Start Your Brand
-            </Link>
+            </Link> 
 
-            <Link
-              href="#contact"
-              className="text-white/70 hover:text-white text-sm font-medium transition"
-            >
-              Get Your PI
-            </Link>
           </div>
 
         </div>
-
       </div>
-
     </section>
-  );
+  )
 }
+
 
 
 function ClientsMarquee() {
@@ -284,33 +281,33 @@ function About() {
   return (
     <section className="bg-[#F3F2EF]">
 
-      <div className="max-w-[1600px] mx-auto px-16 py-20">
+      <div className="max-w-[1600px] mx-auto px-6 sm:px-10 xl:px-16 py-16 md:py-20 xl:py-24">
 
-        <div className="bg-white border border-[#D6D1C8] rounded-2xl">
+        <div className="bg-white border border-[#DDD7CE] rounded-2xl">
 
-          <div className="grid grid-cols-1 md:grid-cols-[0.55fr_0.45fr] gap-20 items-start p-20">
+          <div className="grid grid-cols-1 md:grid-cols-[0.55fr_0.45fr] gap-12 md:gap-20 items-start px-8 sm:px-12 md:px-16 xl:px-20 py-14 md:py-16 xl:py-20">
 
             {/* LEFT */}
-            <div>
+            <div className="text-center md:text-left">
 
-              <div className="inline-flex items-center border border-neutral-300 px-5 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium text-neutral-700 mb-8">
+              <div className="inline-flex items-center border border-neutral-300 px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium text-neutral-700 mb-8">
                 OVERVIEW
               </div>
 
-              <h2 className="text-[42px] leading-[1.1] tracking-[-0.015em] font-medium text-neutral-900 mb-6">
-                  Production
+              <h2 className="text-[32px] sm:text-[36px] md:text-[42px] leading-[1.1] tracking-[-0.015em] font-medium text-neutral-900 mb-6">
+                Production
                 <br />
-                <span className="text-[#8C7A5B]">
+                <span className="text-[#7A6B52]">
                   From Idea to Delivery
                 </span>
               </h2>
 
-              <div className="mt-10 h-[1px] w-24 bg-[#D6D1C8]" />
+              <div className="mt-8 h-[1px] w-24 bg-[#DDD7CE] mx-auto md:mx-0" />
 
             </div>
 
             {/* RIGHT */}
-            <div className="text-[18px] leading-[1.75] text-neutral-700">
+            <div className="text-[16px] md:text-[18px] leading-[1.75] text-neutral-700">
 
               <p>
                 We produce dress-led womenswear, resort sets, modest fashion,
@@ -331,10 +328,12 @@ function About() {
   );
 }
 
-function ProductCategories() {
+function  ProductCategories() {
   const categories = [
     {
       title: "Womenswear",
+      image:
+        "https://images.unsplash.com/photo-1520975918318-7f1f16f63f5d?q=80&w=1200&auto=format&fit=crop",
       items: [
         "Evening Dresses",
         "Day Dresses",
@@ -345,14 +344,14 @@ function ProductCategories() {
     },
     {
       title: "Resort & Modest",
-      items: [
-        "Kaftans",
-        "Abayas",
-        "Flowy Sets",
-      ],
+      image:
+        "https://images.unsplash.com/photo-1603252109360-909baaf261c7?q=80&w=1200&auto=format&fit=crop",
+      items: ["Kaftans", "Abayas", "Flowy Sets"],
     },
     {
       title: "Active & Golf",
+      image:
+        "https://images.unsplash.com/photo-1599058917765-a780eda07a3e?q=80&w=1200&auto=format&fit=crop",
       items: [
         "Polos",
         "Shorts",
@@ -363,6 +362,8 @@ function ProductCategories() {
     },
     {
       title: "Capsule Collections",
+      image:
+        "https://images.unsplash.com/photo-1503342217505-b0a15cf70489?q=80&w=1200&auto=format&fit=crop",
       items: [
         "Multi-Style Drops",
         "Trims",
@@ -374,49 +375,75 @@ function ProductCategories() {
 
   return (
     <section className="bg-[#F3F2EF]">
-      <div className="max-w-[1600px] mx-auto px-16 pb-28">
+      <div className="max-w-[1600px] mx-auto px-6 sm:px-10 xl:px-16 pb-16 md:pb-24 xl:pb-28">
 
         <div className="bg-white border border-[#D6D1C8] rounded-2xl">
-          <div className="p-20">
 
-            <div className="inline-flex items-center border border-neutral-300 px-5 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium text-neutral-700 mb-20">
+          <div className="px-8 sm:px-12 md:px-16 xl:px-20 py-14 md:py-16 xl:py-20">
+
+            {/* PONI */}
+            <div className="inline-flex items-center border border-neutral-300 px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium text-neutral-700 mb-12 md:mb-16">
               PRODUCT CATEGORIES
             </div>
 
-            <div className="space-y-20">
+            {/* LIST */}
+            <div className="space-y-10 md:space-y-14">
+
               {categories.map((category, index) => (
                 <div
                   key={category.title}
-                  className={`grid grid-cols-1 md:grid-cols-[0.45fr_0.55fr] items-start ${
+                  className={`grid grid-cols-1 md:grid-cols-[200px_1fr] gap-6 md:gap-10 items-center ${
                     index !== categories.length - 1
-                      ? "pb-12 border-b border-neutral-200"
+                      ? "pb-8 md:pb-10 border-b border-neutral-200"
                       : ""
                   }`}
                 >
-                  <div className="text-[34px] leading-[1.1] font-medium text-neutral-900">
-                    {category.title}
+                  {/* IMAGE */}
+                  <div className="relative w-full h-[160px] md:h-[120px] rounded-lg overflow-hidden border border-neutral-200">
+
+                    <Image
+                      src={category.image}
+                      alt={category.title}
+                      fill
+                      className="object-cover"
+                    />
+
                   </div>
 
-                  <div className="text-neutral-600 leading-[1.9]">
-                    {category.items.join(", ")}
+                  {/* CONTENT */}
+                  <div>
+
+                    <div className="text-[22px] md:text-[26px] leading-[1.2] font-medium text-neutral-900 mb-3">
+                      {category.title}
+                    </div>
+
+                    <div className="text-[16px] md:text-[18px] leading-[1.8] text-neutral-600">
+                      {category.items.join(", ")}
+                    </div>
+
                   </div>
+
                 </div>
               ))}
+
             </div>
 
-            <div className="mt-24">
-              <button className="bg-neutral-900 text-white px-8 py-3.5 rounded-lg text-sm font-medium">
+            {/* CTA */}
+            <div className="mt-16 md:mt-20">
+              <button className="bg-white text-black px-8 py-3.5 rounded-lg text-sm font-medium border border-neutral-300 hover:bg-neutral-100 transition">
                 Start Your Brand
               </button>
             </div>
 
           </div>
+
         </div>
 
       </div>
     </section>
   );
 }
+
 
 function MaterialsTrims() {
   const data = [
