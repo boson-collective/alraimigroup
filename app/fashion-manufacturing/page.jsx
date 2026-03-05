@@ -1694,14 +1694,14 @@ function Projects() {
 
             {/* HEADER */}
 
-            <div className="projects-header mb-20 md:mb-28 text-center">
+            <div className="projects-header  mb-20 md:mb-28 text-center">
 
-              <div className="inline-flex items-center border border-[#8C7A5B]/40 text-[#8C7A5B] px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium mb-6">
+              <div className="inline-flex  items-center border border-[#8C7A5B]/40 text-[#8C7A5B] px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium mb-6">
                 Projects
               </div>
 
               <h2 className="text-[32px] sm:text-[36px] md:text-[42px] leading-[1.1] tracking-[-0.015em] font-medium text-neutral-900">
-                Selected Packaging Production
+                Selected Fashion Production
               </h2>
 
             </div>
