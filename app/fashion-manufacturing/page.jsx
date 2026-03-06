@@ -138,7 +138,7 @@ function Hero() {
       }, "-=0.2")
 
       .from(".hero-title span", {
-        y: 28,
+        y: 22,
         opacity: 0,
         stagger: 0.04,
         duration: 0.4
@@ -156,6 +156,12 @@ function Hero() {
         duration: 0.35
       }, "-=0.25")
 
+      .from(".hero-image", {
+        opacity: 0,
+        y: 20,
+        duration: 0.45
+      }, "-=0.35")
+
     }, heroRef)
 
     return () => ctx.revert()
@@ -170,164 +176,173 @@ function Hero() {
       className="bg-[#F3F2EF] pt-[8px]"
     >
 
+      {/* NAV OUTSIDE CARD */}
+
+      <div className="max-w-[1600px] mx-auto px-6 md:px-10 xl:px-16">
+
+        <header className="hero-nav flex items-center justify-between h-[92px]">
+
+          <Link href="/" className="flex items-center gap-3">
+
+            <Image
+              src="/images/alraimi-logo-black-1.png"
+              alt="Alraimi Logo"
+              width={42}
+              height={38}
+              priority
+            />
+
+          </Link>
+
+
+          <nav className="hidden md:flex items-center gap-10 lg:gap-12 text-sm text-neutral-600">
+
+            <Link href="/" className="hover:text-black transition">
+              Home
+            </Link>
+
+            <Link
+              href="/fashion-manufacturing"
+              className="text-black"
+            >
+              Fashion
+            </Link>
+
+            <Link
+              href="/luxury-packaging"
+              className="hover:text-black transition"
+            >
+              Packaging
+            </Link>
+
+            <Link href="/contact" className="hover:text-black transition">
+              Contact
+            </Link>
+
+          </nav>
+
+
+          <Link
+            href="#contact"
+            className="hidden md:inline-flex items-center bg-black text-white px-7 py-3 rounded-lg text-sm font-medium transition hover:bg-neutral-800"
+          >
+            Get Your PI
+          </Link>
+
+
+          <Link
+            href="#contact"
+            className="md:hidden inline-flex items-center bg-black text-white px-5 py-2.5 rounded-lg text-sm font-medium transition hover:bg-neutral-800"
+          >
+            Get PI
+          </Link>
+
+        </header>
+
+      </div>
+
+
+      {/* HERO SURFACE */}
+
       <div className="px-[8px]">
 
-        {/* HERO SURFACE */}
+        <div className="  overflow-hidden">
 
-        <div
-          className="relative text-white rounded-2xl border border-neutral-200 overflow-hidden"
-          style={{
-            background: "linear-gradient(135deg, #191919 0%, #2C2C2C 100%)",
-          }}
-        >
+          <div className="max-w-[1600px] mx-auto px-6 md:px-10 xl:px-16 py-20 md:py-24 lg:py-28">
 
-          {/* HEADER */}
+            <div className="grid lg:grid-cols-[0.54fr_0.46fr] gap-14 items-center">
 
-          <div className="max-w-[1600px] mx-auto px-6 md:px-10 xl:px-16 pt-8 md:pt-10">
+              {/* TEXT */}
 
-            <header className="hero-nav flex items-center justify-between">
+              <div>
 
-              <Link href="/" className="flex items-center gap-3">
-                <Image
-                  src="/images/alraimi-logo-white-1.png"
-                  alt="Alraimi Logo"
-                  width={42}
-                  height={38}
-                  priority
-                />
-              </Link>
+                <div className="hero-label mb-6">
+
+                  <span className="text-xs tracking-[0.2em] text-neutral-500">
+                    FASHION MANUFACTURING
+                  </span>
+
+                </div>
 
 
-              {/* Desktop Nav */}
+                <h1
+                  className="
+                  hero-title
+                  font-light
+                  leading-[1.06]
+                  tracking-[-0.02em]
+                  max-w-[700px]
 
-              <nav className="hidden md:flex items-center gap-10 lg:gap-12 text-sm text-white/70">
+                  text-[30px]
+                  sm:text-[36px]
+                  md:text-[42px]
+                  lg:text-[48px]
+                  xl:text-[52px]
 
-                <Link href="/" className="hover:text-white transition">
-                  Home
-                </Link>
-
-                <Link
-                  href="/fashion-manufacturing"
-                  className="text-white"
+                  text-neutral-900
+                  "
                 >
-                  Fashion
-                </Link>
 
-                <Link
-                  href="/luxury-packaging"
-                  className="hover:text-white transition"
+                  <span className="block">
+                    From Tech Pack to Shipment.
+                  </span>
+
+                  <span className="block text-[#8C7A5B]">
+                    Controlled Fit. Structured Production.
+                  </span>
+
+                </h1>
+
+
+                <p
+                  className="
+                  hero-desc
+                  mt-6
+                  text-[16px]
+                  leading-[1.7]
+                  text-neutral-600
+                  max-w-[620px]
+                  "
                 >
-                  Packaging
-                </Link>
 
-                <Link href="#contact" className="hover:text-white transition">
-                  Contact
-                </Link>
+                  Womenswear, resortwear, and activewear manufactured through
+                  structured sampling, measured production control, AQL inspection,
+                  and coordinated global delivery from our factory network in China.
 
-              </nav>
+                </p>
 
 
-              {/* Desktop CTA */}
+                <div className="hero-cta mt-8">
 
-              <Link
-                href="#contact"
-                className="hidden md:inline-flex items-center bg-white text-black px-7 lg:px-8 py-3 rounded-lg text-sm font-medium transition hover:bg-neutral-200"
-              >
-                Get Your PI
-              </Link>
+                  <Link
+                    href="#start"
+                    className="inline-flex bg-black text-white px-8 py-3.5 rounded-lg text-sm font-medium transition hover:bg-neutral-800"
+                  >
+                    Start Your Brand
+                  </Link>
 
+                </div>
 
-              {/* Mobile CTA */}
-
-              <Link
-                href="#contact"
-                className="md:hidden inline-flex items-center bg-white text-black px-5 py-2.5 rounded-lg text-sm font-medium transition hover:bg-neutral-200"
-              >
-                Get PI
-              </Link>
-
-            </header>
-
-          </div>
+              </div>
 
 
 
-          {/* HERO CONTENT */}
+              {/* IMAGE */}
 
-          <div className="max-w-[1600px] mx-auto px-6 md:px-10 xl:px-16 py-24 sm:py-28 md:py-32 lg:py-36 xl:py-40">
+              <div className="hero-image">
 
-            {/* LABEL */}
+                <div className="rounded-2xl overflow-hidden border border-neutral-200 aspect-[4/3]">
 
-            <div className="hero-label mb-6">
+                  <Image
+                    src="https://res.cloudinary.com/djgu1bhef/image/upload/v1772771351/ChatGPT_Image_Mar_6_2026_11_28_31_AM_dyz5pq.png"
+                    alt="Garment inspection"
+                    fill
+                    className="object-cover rounded-2xl"
+                  />
 
-              <span className="text-xs tracking-[0.2em] text-white/50">
-                FASHION MANUFACTURING
-              </span>
+                </div>
 
-            </div>
-
-
-            {/* HEADLINE */}
-
-            <h1
-              className="
-              hero-title
-              font-light
-              leading-[1.05]
-              tracking-[-0.02em]
-              max-w-[980px]
-
-              text-[36px]
-              sm:text-[44px]
-              md:text-[56px]
-              lg:text-[64px]
-              xl:text-[72px]
-              "
-            >
-
-              <span className="block">
-                From Tech Pack to Shipment.
-              </span>
-
-              <span className="block text-[#8C7A5B]">
-                Controlled Fit. Structured Production.
-              </span>
-
-            </h1>
-
-
-            {/* DESCRIPTION */}
-
-            <p
-              className="
-              hero-desc
-              mt-7 md:mt-8
-              text-[15px]
-              md:text-[17px]
-              lg:text-[18px]
-              leading-[1.7]
-              text-white/70
-              max-w-[720px]
-              "
-            >
-
-              Womenswear, resortwear, and activewear manufactured through
-              structured sampling, measured production control, AQL inspection,
-              and coordinated global delivery from our factory network in China.
-
-            </p>
-
-
-            {/* CTA */}
-
-            <div className="hero-cta mt-9 md:mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-
-              <Link
-                href="#start"
-                className="bg-white text-black px-7 md:px-8 py-3 md:py-3.5 rounded-lg text-sm font-medium transition hover:bg-neutral-200"
-              >
-                Start Your Brand
-              </Link>
+              </div>
 
             </div>
 
@@ -345,55 +360,49 @@ function Hero() {
  
 function About() {
   return (
-    <section className="bg-[#F3F2EF]  pt-10 pb-[8px]">
+    <section className="bg-[#F3F2EF] pt-10 pb-[8px]">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-10 xl:px-16">
+        <div className="grid grid-cols-1 md:grid-cols-[0.55fr_0.45fr] gap-[8px]">
 
-        <div className="max-w-[1600px] mx-auto px-6 sm:px-10 xl:px-16">
+          {/* LEFT CARD */}
+          <div className="bg-white border border-[#DDD7CE] rounded-2xl px-8 sm:px-12 md:px-16 xl:px-20 py-14 md:py-16 xl:py-20 text-center md:text-left">
 
-          <div className="grid grid-cols-1 md:grid-cols-[0.55fr_0.45fr] gap-[8px]">
-
-            {/* LEFT CARD */}
-            <div className="bg-white border border-[#DDD7CE] rounded-2xl px-8 sm:px-12 md:px-16 xl:px-20 py-14 md:py-16 xl:py-20 text-center md:text-left">
-
-              <div className="inline-flex items-center border border-[#8C7A5B]/40 text-[#8C7A5B] px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium mb-8">
-                OVERVIEW
-              </div>
-
-              <h2 className="text-[32px] sm:text-[36px] md:text-[42px] leading-[1.1] tracking-[-0.015em] font-medium text-neutral-900 mb-6">
-                Production
-                <br />
-                <span>
-                  From Idea to Delivery
-                </span>
-              </h2>
-
-              <div className="mt-8 h-[1px] w-24 bg-[#DDD7CE] mx-auto md:mx-0" />
-
+            <div className="inline-flex items-center border border-[#8C7A5B]/40 text-[#8C7A5B] px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium mb-8">
+              OVERVIEW
             </div>
 
+            <h2 className="text-[34px] sm:text-[36px] md:text-[40px] leading-[1.1] tracking-[-0.015em] font-normal text-neutral-900">
+              Production
+              <br />
+              <span>From Idea to Delivery</span>
+            </h2>
 
-            {/* RIGHT CARD */}
-            <div className="bg-white border border-[#DDD7CE] rounded-2xl px-8 sm:px-12 md:px-16 xl:px-20 py-14 md:py-16 xl:py-20 flex items-center">
+            <div className="mt-8 h-[1px] w-24 bg-[#DDD7CE] mx-auto md:mx-0"></div>
 
-              <div className="text-[16px] md:text-[18px] leading-[1.75] text-neutral-700">
+          </div>
 
-                <p>
-                  We produce dress-led womenswear, resort sets, modest fashion,
-                  golfwear, and capsule collections — from first idea to global
-                  delivery. You work directly with our China factory team on tech
-                  packs, sampling, in-line quality control, and pre-shipment inspection.
-                </p>
+          {/* RIGHT CARD */}
+          <div className="bg-white border border-[#DDD7CE] rounded-2xl px-8 sm:px-12 md:px-16 xl:px-20 py-14 md:py-16 xl:py-20 flex items-center">
 
-              </div>
+            <div className="text-[16px] sm:text-[17px] md:text-[18px] leading-[1.7] text-neutral-600">
+
+              <p>
+                We produce dress-led womenswear, resort sets, modest fashion,
+                golfwear, and capsule collections — from first idea to global
+                delivery. You work directly with our China factory team on tech
+                packs, sampling, in-line quality control, and pre-shipment inspection.
+              </p>
 
             </div>
 
           </div>
 
         </div>
-
+      </div>
     </section>
   );
 }
+
 
 function ProductCategories() {
 
@@ -416,13 +425,7 @@ function ProductCategories() {
     {
       title: "Active Sportswear",
       image: "https://res.cloudinary.com/djgu1bhef/image/upload/v1772697205/ChatGPT_Image_Mar_5_2026_02_52_33_PM_sliigg.png",
-      items: [
-        "Performance Tops",
-        "Compression Leggings",
-        "Training Shorts",
-        "Sports Bras",
-        "Technical Layers",
-      ],
+      items: ["Performance Tops","Compression Leggings","Training Shorts","Sports Bras","Technical Layers"],
     },
     {
       title: "Capsule Collections",
@@ -431,10 +434,9 @@ function ProductCategories() {
     },
   ]
 
-
   return (
 
-    <section className="bg-[#F3F2EF]   pt-[8px]">
+    <section className="bg-[#F3F2EF] pt-[8px]">
 
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 xl:px-16">
 
@@ -442,13 +444,25 @@ function ProductCategories() {
 
           <div className="px-8 sm:px-12 md:px-16 xl:px-20 py-14 md:py-16 xl:py-20">
 
+
             {/* LABEL */}
 
-            <div className="flex justify-center mb-14">
+            <div className="flex justify-center mb-6">
 
               <div className="inline-flex items-center border border-[#8C7A5B]/40 text-[#8C7A5B] px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium">
-                PRODUCT CATEGORIES
+                Product Categories
               </div>
+
+            </div>
+
+
+            {/* BIG HEADING */}
+
+            <div className="text-center mb-14">
+
+              <h2 className="text-[30px] sm:text-[34px] md:text-[38px] lg:text-[40px] leading-[1.1] tracking-[-0.015em] font-normal text-neutral-900 max-w-[820px] mx-auto">
+                Fashion Production Categories
+              </h2>
 
             </div>
 
@@ -468,7 +482,9 @@ function ProductCategories() {
 
                   <div key={category.title} className={position}>
 
-                    <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden border border-neutral-200 mb-5">
+                    {/* IMAGE */}
+
+                    <div className="relative w-full aspect-square rounded-xl overflow-hidden border border-neutral-200 mb-5">
 
                       <Image
                         src={category.image}
@@ -479,9 +495,15 @@ function ProductCategories() {
 
                     </div>
 
-                    <div className="text-[22px] font-medium text-neutral-900 mb-2">
+
+                    {/* TITLE */}
+
+                    <div className="text-[20px] font-medium text-neutral-900 mb-2">
                       {category.title}
                     </div>
+
+
+                    {/* ITEMS */}
 
                     <div className="text-[16px] leading-[1.7] text-neutral-600">
                       {category.items.join(", ")}
@@ -516,6 +538,7 @@ function ProductCategories() {
     </section>
 
   )
+
 }
 
 
@@ -526,53 +549,27 @@ function MaterialsTrims() {
       title: "Fabrics",
       image: "https://res.cloudinary.com/djgu1bhef/image/upload/v1772705132/ChatGPT_Image_Mar_5_2026_05_03_50_PM_nns9zv.png",
       fade: "w-[58%]",
-      items: [
-        "Cotton",
-        "Linen",
-        "Rayon",
-        "Viscose",
-        "Polyester",
-        "Spandex Blends",
-        "Performance Knits",
-      ],
+      items: ["Cotton","Linen","Rayon","Viscose","Polyester","Spandex Blends","Performance Knits"],
     },
     {
       title: "Trims & Labels",
       image: "https://res.cloudinary.com/djgu1bhef/image/upload/v1772705134/ChatGPT_Image_Mar_5_2026_05_03_25_PM_pfdojt.png",
       fade: "w-[52%]",
-      items: [
-        "Woven Labels",
-        "Heat Transfer",
-        "Care Labels",
-        "Size Labels",
-        "Zippers",
-        "Buttons",
-        "Swing Tags",
-      ],
+      items: ["Woven Labels","Heat Transfer","Care Labels","Size Labels","Zippers","Buttons","Swing Tags"],
     },
     {
       title: "Packing Options",
       image: "https://res.cloudinary.com/djgu1bhef/image/upload/v1772705131/ChatGPT_Image_Mar_5_2026_05_05_00_PM_nvpo8l.png",
       fade: "w-[60%]",
-      items: [
-        "Retail Poly",
-        "Eco-Friendly Garment Bags",
-        "Compostable",
-        "Biodegradable",
-      ],
+      items: ["Retail Poly","Eco-Friendly Garment Bags","Compostable","Biodegradable"],
     },
     {
       title: "Color Control",
       image: "https://res.cloudinary.com/djgu1bhef/image/upload/v1772705133/ChatGPT_Image_Mar_5_2026_05_02_04_PM_wqntnm.png",
       fade: "w-[55%]",
-      items: [
-        "Client Swatch",
-        "Reference Samples",
-        "Pantone Matching",
-      ],
+      items: ["Client Swatch","Reference Samples","Pantone Matching"],
     },
   ]
-
 
   return (
 
@@ -582,92 +579,63 @@ function MaterialsTrims() {
 
         <div className="border border-neutral-200 rounded-2xl">
 
-          <div className="px-10 md:px-14 xl:px-20 pt-16 md:pt-20 xl:pt-24">
+          <div className="max-w-[1600px] mx-auto px-6 md:px-10 xl:px-16 pt-16 md:pt-20 xl:pt-24">
 
-            <div className="max-w-[1600px] mx-auto">
+            {/* HEADER */}
 
-              {/* HEADER */}
+            <div className="mb-12 md:mb-16 xl:mb-20">
 
-              <div className="mb-12 md:mb-16 xl:mb-20">
-
-                <div className="inline-flex items-center border border-[#8C7A5B]/40 text-[#8C7A5B] px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium mb-12">
-                  MATERIALS & TRIMS
-                </div>
-
-                <h2 className="
-                  text-[32px]
-                  sm:text-[36px]
-                  md:text-[40px]
-                  lg:text-[42px]
-                  leading-[1.1]
-                  tracking-[-0.015em]
-                  font-medium
-                  text-neutral-900
-                  max-w-[720px]
-                ">
-                  Fabric Selection, Trim Development,
-                  <br />
-                  and Packing Control
-                </h2>
-
+              <div className="inline-flex items-center border border-[#8C7A5B]/40 text-[#8C7A5B] px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium mb-10">
+                MATERIALS & TRIMS
               </div>
 
+              <h2 className="text-[34px] sm:text-[36px] md:text-[40px] leading-[1.1] tracking-[-0.015em] font-normal text-neutral-900 max-w-[720px]">
+                Fabric Selection, Trim Development,<br/>and Packing Control
+              </h2>
 
-              {/* GRID */}
+            </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10 pb-14 md:pb-16 xl:pb-20">
 
-                {data.map((block) => (
-                  <div
-                    key={block.title}
-                    className="relative bg-white border border-neutral-300 rounded-2xl overflow-hidden min-h-[220px] flex items-center"
-                  >
+            {/* GRID */}
 
-                    {/* IMAGE RIGHT */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-[8px] pb-14 md:pb-16 xl:pb-20">
 
-                    <div className={`absolute inset-y-0 right-0 ${block.fade} pointer-events-none`}>
+              {data.map((block) => (
+                <div key={block.title} className="relative bg-white border border-neutral-300 rounded-2xl overflow-hidden min-h-[220px] flex items-center">
 
-                      <img
-                        src={block.image}
-                        alt={block.title}
-                        className="w-full h-full object-cover"
-                      />
+                  {/* IMAGE */}
 
-                      {/* FADE */}
+                  <div className={`absolute inset-y-0 right-0 ${block.fade} pointer-events-none`}>
 
-                      <div className="absolute inset-0 bg-gradient-to-l from-transparent via-white/60 to-white" />
+                    <img src={block.image} alt={block.title} className="w-full h-full object-cover"/>
 
+                    <div className="absolute inset-0 bg-gradient-to-l from-transparent via-white/60 to-white"/>
+
+                  </div>
+
+
+                  {/* CONTENT */}
+
+                  <div className="relative z-10 px-6 md:px-8 py-8 max-w-[65%]">
+
+                    <div className="text-[16px] sm:text-[17px] md:text-[18px] leading-[1.3] font-medium text-neutral-900 mb-4">
+                      {block.title}
                     </div>
 
+                    <div className="flex flex-wrap gap-2">
 
-                    {/* CONTENT */}
-
-                    <div className="relative z-10 px-6 md:px-8 py-8 max-w-[65%]">
-
-                      <div className="text-[18px] md:text-[19px] font-medium text-neutral-900 mb-4">
-                        {block.title}
-                      </div>
-
-                      <div className="flex flex-wrap gap-2">
-
-                        {block.items.map((item) => (
-                          <span
-                            key={item}
-                            className="px-3 py-1.5 text-[12.5px] border border-neutral-300 rounded-md text-neutral-700"
-                          >
-                            {item}
-                          </span>
-                        ))}
-
-                      </div>
+                      {block.items.map((item) => (
+                        <span key={item} className="px-3 py-1.5 text-sm border border-neutral-300 rounded-md text-neutral-700">
+                          {item}
+                        </span>
+                      ))}
 
                     </div>
 
                   </div>
-                ))}
 
-              </div>
-
+                </div>
+              ))}
 
             </div>
 
@@ -693,23 +661,19 @@ function FitSizing() {
   const controls = [
     {
       title: "Size Charts",
-      description:
-        "Prepared by us and editable by you before final approval.",
+      description: "Prepared by us and editable by you before final approval.",
     },
     {
       title: "Measurement Documentation",
-      description:
-        "Photos and videos shared during every sample round.",
+      description: "Photos and videos shared during every sample round.",
     },
     {
       title: "Graded Size Set",
-      description:
-        "Available upon request before bulk production.",
+      description: "Available upon request before bulk production.",
     },
     {
       title: "Golden Sample",
-      description:
-        "Final approved reference locked before manufacturing begins.",
+      description: "Final approved reference locked before manufacturing begins.",
     },
   ]
 
@@ -727,34 +691,10 @@ function FitSizing() {
         }
       })
 
-      tl.from(".fit-label", {
-        opacity: 0,
-        y: 16,
-        duration: 0.4,
-        ease: "power2.out"
-      })
-
-      .from(".fit-title", {
-        opacity: 0,
-        y: 24,
-        duration: 0.45,
-        ease: "power3.out"
-      }, "-=0.25")
-
-      .from(".fit-desc", {
-        opacity: 0,
-        y: 16,
-        duration: 0.4,
-        ease: "power2.out"
-      }, "-=0.3")
-
-      .from(".fit-item", {
-        opacity: 0,
-        y: 20,
-        stagger: 0.07,
-        duration: 0.45,
-        ease: "power2.out"
-      }, "-=0.25")
+      tl.from(".fit-label",{opacity:0,y:16,duration:0.4,ease:"power2.out"})
+      .from(".fit-title",{opacity:0,y:24,duration:0.45,ease:"power3.out"},"-=0.25")
+      .from(".fit-desc",{opacity:0,y:16,duration:0.4,ease:"power2.out"},"-=0.3")
+      .from(".fit-item",{opacity:0,y:20,stagger:0.07,duration:0.45,ease:"power2.out"},"-=0.25")
 
     }, sectionRef)
 
@@ -765,76 +705,38 @@ function FitSizing() {
 
   return (
 
-    <section
-      ref={sectionRef}
-      className="relative bg-[#F3F2EF] pt-[8px] overflow-hidden"
-    >
+    <section ref={sectionRef} className="relative bg-[#F3F2EF] pt-[8px] overflow-hidden">
 
       {/* LEFT TEXTURE */}
 
-      <div
-        className="absolute left-0 top-0 h-full w-[35%] pointer-events-none opacity-[1]"
-        style={{
-          backgroundImage:
-            "url(https://res.cloudinary.com/djgu1bhef/image/upload/v1772706209/ChatGPT_Image_Mar_5_2026_05_23_08_PM_s6kvvj.png)",
-          backgroundSize: "900px",
-          backgroundRepeat: "repeat",
-          backgroundPosition: "left center",
-          WebkitMaskImage:
-            "linear-gradient(to right, black 0%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
-          WebkitMaskComposite: "destination-in",
-          maskImage:
-            "linear-gradient(to right, black 0%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
-          maskComposite: "intersect",
-        }}
-      />
+      <div className="absolute left-0 top-0 h-full w-[35%] pointer-events-none opacity-[1]" style={{backgroundImage:"url(https://res.cloudinary.com/djgu1bhef/image/upload/v1772706209/ChatGPT_Image_Mar_5_2026_05_23_08_PM_s6kvvj.png)",backgroundSize:"900px",backgroundRepeat:"repeat",backgroundPosition:"left center",WebkitMaskImage:"linear-gradient(to right, black 0%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",WebkitMaskComposite:"destination-in",maskImage:"linear-gradient(to right, black 0%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",maskComposite:"intersect"}} />
 
       {/* RIGHT TEXTURE */}
 
-      <div
-        className="absolute right-0 top-0 h-full w-[35%] pointer-events-none opacity-[0.06]"
-        style={{
-          backgroundImage:
-            "url(https://res.cloudinary.com/djgu1bhef/image/upload/v1772706209/ChatGPT_Image_Mar_5_2026_05_23_08_PM_s6kvvj.png)",
-          backgroundSize: "900px",
-          backgroundRepeat: "repeat",
-          backgroundPosition: "right center",
-          WebkitMaskImage:
-            "linear-gradient(to left, black 0%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
-          WebkitMaskComposite: "destination-in",
-          maskImage:
-            "linear-gradient(to left, black 0%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
-          maskComposite: "intersect",
-        }}
-      />
-
+      <div className="absolute right-0 top-0 h-full w-[35%] pointer-events-none opacity-[0.06]" style={{backgroundImage:"url(https://res.cloudinary.com/djgu1bhef/image/upload/v1772706209/ChatGPT_Image_Mar_5_2026_05_23_08_PM_s6kvvj.png)",backgroundSize:"900px",backgroundRepeat:"repeat",backgroundPosition:"right center",WebkitMaskImage:"linear-gradient(to left, black 0%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",WebkitMaskComposite:"destination-in",maskImage:"linear-gradient(to left, black 0%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",maskComposite:"intersect"}} />
 
       {/* CONTENT */}
 
       <div className="relative px-[8px]">
 
-        <div className="max-w-[1600px] mx-auto px-6 sm:px-10 xl:px-16 py-20 sm:py-24 md:py-28 xl:py-32">
+        <div className="max-w-[1600px] mx-auto px-6 md:px-10 xl:px-16 py-20 md:py-24 xl:py-28">
 
           <div className="grid grid-cols-1 md:grid-cols-[0.45fr_0.55fr] gap-14 md:gap-20 xl:gap-24">
-
 
             {/* LEFT */}
 
             <div>
 
-              <div className="fit-label inline-flex items-center border border-[#8C7A5B]/40 text-[#8C7A5B] px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium mb-5 md:mb-6">
+              <div className="fit-label inline-flex items-center border border-[#8C7A5B]/40 text-[#8C7A5B] px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium mb-6">
                 FIT & SIZING
               </div>
 
-              <h2 className="fit-title text-[34px] sm:text-[38px] md:text-[42px] lg:text-[44px] leading-[1.1] tracking-[-0.015em] font-medium text-neutral-900">
-                We Set Your Fit Once —
-                <br />
-                Then Protect It Every Reorder
+              <h2 className="fit-title text-[34px] sm:text-[36px] md:text-[40px] leading-[1.1] tracking-[-0.015em] font-normal text-neutral-900">
+                We Set Your Fit Once —<br/>Then Protect It Every Reorder
               </h2>
 
-              <div className="fit-desc mt-8 md:mt-10 text-neutral-700 text-[16px] md:text-[17px] lg:text-[18px] leading-[1.8] max-w-[420px]">
-                Fit consistency is controlled through documentation,
-                approvals, and locked references before production.
+              <div className="fit-desc mt-8 text-[16px] sm:text-[17px] md:text-[18px] leading-[1.7] text-neutral-600 max-w-[420px]">
+                Fit consistency is controlled through documentation, approvals, and locked references before production.
               </div>
 
             </div>
@@ -847,11 +749,11 @@ function FitSizing() {
               {controls.map((item) => (
                 <div key={item.title} className="fit-item">
 
-                  <div className="text-[20px] md:text-[22px] font-medium text-neutral-900 mb-3">
+                  <div className="text-[18px] sm:text-[19px] md:text-[20px] leading-[1.3] font-medium text-neutral-900 mb-3">
                     {item.title}
                   </div>
 
-                  <div className="text-neutral-700 text-[16px] md:text-[17px] leading-[1.8]">
+                  <div className="text-[16px] leading-[1.7] text-neutral-600">
                     {item.description}
                   </div>
 
@@ -873,51 +775,52 @@ function FitSizing() {
   )
 }
 
+
 function MOQsTimelines() {
+
   const items = [
     {
       title: "MOQs",
-      content:
-        "Standard production runs start from 5,000+ units. Select SKUs may begin from 1,000+ for launches or trial batches (spec-dependent).",
+      content: "Standard production runs start from 5,000+ units. Select SKUs may begin from 1,000+ for launches or trial batches (spec-dependent).",
     },
     {
       title: "Samples",
-      content:
-        "Typically 1–3 weeks after dieline and specification confirmation.",
+      content: "Typically 1–3 weeks after dieline and specification confirmation.",
     },
     {
       title: "Production",
-      content:
-        "Usually 3–6 weeks from sample approval. Complex structures or specialty finishes may extend lead time.",
+      content: "Usually 3–6 weeks from sample approval. Complex structures or specialty finishes may extend lead time.",
     },
     {
       title: "Reorders",
-      content:
-        "Faster once master materials, colors, and structural standards are locked.",
+      content: "Faster once master materials, colors, and structural standards are locked.",
     },
   ];
 
   return (
-    <section className="bg-[#F3F2EF]  pt-[8px]">
+
+    <section className="bg-[#F3F2EF] pt-[8px]">
 
       <div className="px-[8px]">
 
-        <div className="max-w-[1600px] mx-auto px-6 md:px-16 py-20  ">
+        <div className="max-w-[1600px] mx-auto px-6 md:px-10 xl:px-16 py-20 md:py-24 xl:py-28">
 
           {/* Header */}
-          <div className="mb-16 md:mb-24 text-center">
-            
+
+          <div className="mb-16 md:mb-20 text-center">
+
             <div className="inline-flex items-center border border-[#8C7A5B]/40 text-[#8C7A5B] px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium mb-6">
               MOQs & Timelines
             </div>
 
-            <h2 className="text-[32px] sm:text-[36px] md:text-[40px] xl:text-[42px] leading-[1.1] tracking-[-0.015em] font-medium text-neutral-900">
+            <h2 className="text-[34px] sm:text-[36px] md:text-[40px] leading-[1.1] tracking-[-0.015em] font-normal text-neutral-900">
               Production Quantities and Lead Times
             </h2>
 
           </div>
 
-          {/* Card Wrapper */}
+          {/* Card */}
+
           <div className="bg-white border border-[#D6D1C8] rounded-2xl px-8 sm:px-12 md:px-16 xl:px-20 py-12 md:py-16 xl:py-20">
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-y-12 md:gap-y-16 md:gap-x-16 xl:gap-x-20">
@@ -925,18 +828,20 @@ function MOQsTimelines() {
               {items.map((item, index) => (
                 <div key={item.title} className="flex gap-6 md:gap-8 items-start">
 
-                  <div className="text-[22px] md:text-[26px] xl:text-[28px] font-medium text-neutral-300 leading-none shrink-0">
+                  <div className="text-[20px] sm:text-[22px] md:text-[24px] font-medium text-neutral-300 leading-none shrink-0">
                     {String(index + 1).padStart(2, "0")}
                   </div>
 
                   <div>
-                    <div className="text-[18px] md:text-[20px] font-medium text-neutral-900 mb-3">
+
+                    <div className="text-[16px] sm:text-[17px] md:text-[18px] leading-[1.3] font-medium text-neutral-900 mb-3">
                       {item.title}
                     </div>
 
-                    <div className="text-neutral-700 text-[16px] md:text-[17px] leading-[1.8]">
+                    <div className="text-[16px] leading-[1.7] text-neutral-600">
                       {item.content}
                     </div>
+
                   </div>
 
                 </div>
@@ -944,9 +849,8 @@ function MOQsTimelines() {
 
             </div>
 
-            <div className="mt-14 md:mt-20 pt-6 md:pt-8 border-t border-neutral-200 text-neutral-500 text-[14px] md:text-[15px] leading-[1.8] max-w-[800px]">
-              Final MOQs and production timelines are confirmed in your PI based on structure,
-              materials, finishes, and logistics requirements.
+            <div className="mt-14 md:mt-20 pt-6 md:pt-8 border-t border-neutral-200 text-sm text-neutral-500 leading-[1.7] max-w-[800px]">
+              Final MOQs and production timelines are confirmed in your PI based on structure, materials, finishes, and logistics requirements.
             </div>
 
           </div>
@@ -956,6 +860,7 @@ function MOQsTimelines() {
       </div>
 
     </section>
+
   );
 }
 
@@ -966,20 +871,17 @@ function QualityControl() {
     {
       title: "In-Line Quality Control",
       desc: "Supervised production-floor monitoring during active manufacturing.",
-      image:
-        "https://res.cloudinary.com/djgu1bhef/image/upload/v1772606303/ChatGPT_Image_Mar_4_2026_12_57_21_PM_wri1bp.png",
+      image: "https://res.cloudinary.com/djgu1bhef/image/upload/v1772606303/ChatGPT_Image_Mar_4_2026_12_57_21_PM_wri1bp.png",
     },
     {
       title: "Pre-Shipment AQL Inspection",
       desc: "Formal inspection with full report, measurements, and visual documentation.",
-      image:
-        "https://res.cloudinary.com/djgu1bhef/image/upload/v1772606304/ChatGPT_Image_Mar_4_2026_12_57_06_PM_ztdptp.png",
+      image: "https://res.cloudinary.com/djgu1bhef/image/upload/v1772606304/ChatGPT_Image_Mar_4_2026_12_57_06_PM_ztdptp.png",
     },
     {
       title: "Corrective Action Protocol",
       desc: "Any deviation is corrected before shipment release.",
-      image:
-        "https://res.cloudinary.com/djgu1bhef/image/upload/v1772606304/ChatGPT_Image_Mar_4_2026_01_37_01_PM_x8gmm1.png",
+      image: "https://res.cloudinary.com/djgu1bhef/image/upload/v1772606304/ChatGPT_Image_Mar_4_2026_01_37_01_PM_x8gmm1.png",
     },
   ]
 
@@ -987,37 +889,25 @@ function QualityControl() {
   const imageRef = useRef(null)
 
   useEffect(() => {
-
-    gsap.fromTo(
-      imageRef.current,
-      { opacity: 0 },
-      {
-        opacity: 1,
-        duration: 0.35,
-        ease: "power2.out",
-      }
-    )
-
-  }, [activeIndex])
+    gsap.fromTo(imageRef.current,{opacity:0},{opacity:1,duration:0.35,ease:"power2.out"})
+  },[activeIndex])
 
   return (
 
-    <section className="pb-20   text-white">
+    <section className="text-white">
 
       <div className="max-w-[1600px] mx-auto px-6 md:px-10 xl:px-16">
 
         {/* HEADER */}
 
-        <div className="mb-20 md:mb-24 xl:mb-28">
+        <div className="mb-16 md:mb-20">
 
-          <div className="text-xs tracking-[0.18em] uppercase font-medium text-white/50 mb-6">
+          <div className="inline-flex items-center border border-[#8C7A5B]/40 text-[#8C7A5B] px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium mb-6">
             QUALITY CONTROL
           </div>
 
-          <h2 className="text-[34px] md:text-[42px] leading-[1.1] tracking-[-0.015em] font-light max-w-[720px]">
-            Inspection Before Shipment,
-            <br />
-            Not After Complaints
+          <h2 className="text-[34px] sm:text-[36px] md:text-[40px] leading-[1.1] tracking-[-0.015em] font-light max-w-[720px]">
+            Inspection Before Shipment,<br/>Not After Complaints
           </h2>
 
         </div>
@@ -1030,7 +920,7 @@ function QualityControl() {
 
           {/* IMAGE */}
 
-          <div className="w-full aspect-square overflow-hidden rounded-[28px]">
+          <div className="w-full aspect-square overflow-hidden rounded-2xl">
 
             <img
               ref={imageRef}
@@ -1043,43 +933,25 @@ function QualityControl() {
           </div>
 
 
-
           {/* LIST */}
 
           <div className="space-y-10">
 
-            {controls.map((item, index) => {
+            {controls.map((item,index)=>{
 
               const isActive = activeIndex === index
 
-              return (
+              return(
 
-                <div
-                  key={item.title}
-                  onClick={() => setActiveIndex(index)}
-                  className="cursor-pointer pb-8 border-b border-white/10 transition-all duration-300"
-                >
+                <div key={item.title} onClick={()=>setActiveIndex(index)} className="cursor-pointer pb-8 border-b border-white/10 transition-all duration-300">
 
-                  <div
-                    className={`text-[22px] md:text-[26px] transition-colors duration-300 ${
-                      isActive
-                        ? "text-white"
-                        : "text-white/40 hover:text-white/70"
-                    }`}
-                  >
+                  <div className={`text-[18px] sm:text-[19px] md:text-[20px] leading-[1.3] font-medium transition-colors duration-300 ${isActive ? "text-white" : "text-white/40 hover:text-white/70"}`}>
                     {item.title}
                   </div>
 
+                  <div className={`overflow-hidden transition-all duration-300 ${isActive ? "max-h-40 mt-4 opacity-100" : "max-h-0 opacity-0"}`}>
 
-                  <div
-                    className={`overflow-hidden transition-all duration-300 ${
-                      isActive
-                        ? "max-h-40 mt-4 opacity-100"
-                        : "max-h-0 opacity-0"
-                    }`}
-                  >
-
-                    <div className="text-white/60 text-[16px] md:text-[17px] leading-[1.8] max-w-[520px]">
+                    <div className="text-[16px] leading-[1.7] text-white/70 max-w-[520px]">
                       {item.desc}
                     </div>
 
@@ -1092,9 +964,8 @@ function QualityControl() {
             })}
 
 
-            <div className="pt-8 text-white/50 text-[16px] leading-[1.8] max-w-[520px]">
-              Real-time production photos and video updates are shared during
-              manufacturing to maintain transparency and alignment.
+            <div className="pt-8 text-sm text-white/50 leading-[1.7] max-w-[520px]">
+              Real-time production photos and video updates are shared during manufacturing to maintain transparency and alignment.
             </div>
 
           </div>
@@ -1109,42 +980,27 @@ function QualityControl() {
 }
 
 function LogisticsShipping() {
-  const sectionRef = useRef(null);
+
+  const sectionRef = useRef(null)
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.registerPlugin(ScrollTrigger)
 
     const ctx = gsap.context(() => {
 
       const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-          once: true,
-        }
-      });
+        scrollTrigger:{trigger:sectionRef.current,start:"top 80%",once:true}
+      })
 
-      // LEFT
-      tl.from(".logistics-left", {
-        opacity: 0,
-        x: -40,
-        duration: 0.6,
-        ease: "power2.out",
-      });
+      tl.from(".logistics-left",{opacity:0,x:-40,duration:0.6,ease:"power2.out"})
+      .from(".incoterm-item",{opacity:0,y:30,duration:0.5,ease:"power2.out",stagger:0.12},"-=0.3")
 
-      // RIGHT ITEMS
-      tl.from(".incoterm-item", {
-        opacity: 0,
-        y: 30,
-        duration: 0.5,
-        ease: "power2.out",
-        stagger: 0.12,
-      }, "-=0.3");
+    },sectionRef)
 
-    }, sectionRef);
+    return () => ctx.revert()
 
-    return () => ctx.revert();
-  }, []);
+  },[])
 
   const incoterms = [
     {
@@ -1159,58 +1015,61 @@ function LogisticsShipping() {
       code: "DDP",
       desc: "Door-to-door delivery with customs clearance included. Transit typically 15 days by air and around 30 days by sea depending on route.",
     },
-  ];
+  ]
 
   return (
-    <section
-      ref={sectionRef}
-      className="py-16 md:py-20 xl:py-24   text-white"
-    >
-      <div className="max-w-[1600px] mx-auto px-6 md:px-16">
+
+    <section ref={sectionRef} className="pt-16 md:pt-20 xl:pt-24 text-white">
+
+      <div className="max-w-[1600px] mx-auto px-6 md:px-10 xl:px-16">
 
         <div className="grid grid-cols-1 md:grid-cols-[0.5fr_0.5fr] gap-14 md:gap-24">
 
           {/* LEFT */}
+
           <div className="logistics-left text-center md:text-left">
 
-            <div className="text-xs tracking-[0.18em] uppercase font-medium text-white/50 mb-6">
+            <div className="inline-flex items-center border border-[#8C7A5B]/40 text-[#8C7A5B] px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium mb-6">
               Logistics & Shipping
             </div>
 
-            <h2 className="text-[32px] sm:text-[36px] md:text-[42px] leading-[1.1] tracking-[-0.015em] font-light">
-              Choose the Incoterms
-              <br />
-              That Suit Your Operation
+            <h2 className="text-[34px] sm:text-[36px] md:text-[40px] leading-[1.1] tracking-[-0.015em] font-light">
+              Choose the Incoterms<br/>That Suit Your Operation
             </h2>
 
-            <div className="mt-8 md:mt-12 text-white/60 text-[15px] md:text-[16px] leading-[1.8] max-w-[420px] mx-auto md:mx-0">
+            <div className="mt-8 text-[16px] leading-[1.7] text-white/70 max-w-[420px] mx-auto md:mx-0">
               Export documentation and packing lists are prepared by our team for all shipment types.
             </div>
 
-            <div className="mt-12 md:mt-16 flex justify-center md:justify-start">
-              <button className="bg-white text-black px-8 py-3.5 rounded-lg text-sm font-medium hover:bg-neutral-200 transition">
+            <div className="mt-12 flex justify-center md:justify-start">
+
+              <button className="px-8 py-3.5 rounded-lg text-sm font-medium bg-white text-black hover:bg-neutral-200 transition">
                 Get Your PI
               </button>
+
             </div>
 
           </div>
 
+
           {/* RIGHT */}
+
           <div className="space-y-8 md:space-y-12">
 
-            {incoterms.map((item) => (
-              <div
-                key={item.code}
-                className="incoterm-item pb-8 md:pb-10 border-b border-white/10"
-              >
-                <div className="text-[30px] sm:text-[34px] md:text-[40px] font-light tracking-[-0.02em] mb-4 md:mb-6">
+            {incoterms.map((item)=>(
+              
+              <div key={item.code} className="incoterm-item pb-8 md:pb-10 border-b border-white/10">
+
+                <div className="text-[28px] sm:text-[32px] md:text-[36px] font-light tracking-[-0.02em] mb-4">
                   {item.code}
                 </div>
 
-                <div className="text-white/60 text-[16px] md:text-[18px] leading-[1.8] max-w-[520px]">
+                <div className="text-[16px] leading-[1.7] text-white/70 max-w-[520px]">
                   {item.desc}
                 </div>
+
               </div>
+
             ))}
 
           </div>
@@ -1218,8 +1077,10 @@ function LogisticsShipping() {
         </div>
 
       </div>
+
     </section>
-  );
+
+  )
 }
 
 
@@ -1610,128 +1471,88 @@ function Projects() {
 
   const sectionRef = useRef(null)
 
-  useEffect(() => {
+  useEffect(()=>{
 
     gsap.registerPlugin(ScrollTrigger)
 
-    const ctx = gsap.context(() => {
+    const ctx = gsap.context(()=>{
 
-      gsap.from(".projects-header", {
-        opacity: 0,
-        y: 30,
-        duration: 0.6,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-          once: true,
-        },
-      })
+      gsap.from(".projects-header",{opacity:0,y:30,duration:0.6,ease:"power2.out",scrollTrigger:{trigger:sectionRef.current,start:"top 80%",once:true}})
 
-      gsap.utils.toArray(".project-block").forEach((block) => {
+      gsap.utils.toArray(".project-block").forEach((block)=>{
 
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: block,
-            start: "top 85%",
-            once: true,
-          }
-        })
+        const tl = gsap.timeline({scrollTrigger:{trigger:block,start:"top 85%",once:true}})
 
-        tl.from(block.querySelector(".project-image"), {
-          opacity: 0,
-          scale: 1.05,
-          duration: 0.8,
-          ease: "power2.out",
-        })
-
-        tl.from(block.querySelector(".project-text"), {
-          opacity: 0,
-          y: 40,
-          duration: 0.6,
-          ease: "power2.out",
-        }, "-=0.6")
+        tl.from(block.querySelector(".project-image"),{opacity:0,scale:1.05,duration:0.8,ease:"power2.out"})
+        tl.from(block.querySelector(".project-text"),{opacity:0,y:40,duration:0.6,ease:"power2.out"},"-=0.6")
 
       })
 
-    }, sectionRef)
+    },sectionRef)
 
-    return () => ctx.revert()
+    return ()=>ctx.revert()
 
-  }, [])
+  },[])
 
   const projects = [
     {
-      title: "Boutique Womenswear Brand",
-      location: "Dubai (Confidential)",
-      meta: "2025 • Fashion • Womenswear",
-      image: "/images/projects/womenswear.png",
-      description:
-        "Dress-led collections; 5,000+ pcs across drops; samples 2–3 weeks; production 4–8 weeks; size-chart & measurement-video approvals; in-line QC + pre-shipment AQL; DDP available.",
+      title:"Boutique Womenswear Brand",
+      location:"Dubai (Confidential)",
+      meta:"2025 • Fashion • Womenswear",
+      image:"/images/projects/womenswear.png",
+      description:"Dress-led collections; 5,000+ pcs across drops; samples 2–3 weeks; production 4–8 weeks; size-chart & measurement-video approvals; in-line QC + pre-shipment AQL; DDP available.",
     },
     {
-      title: "Golf Apparel Startup",
-      location: "Dubai (Confidential)",
-      meta: "2025 • Fashion • Activewear",
-      image: "/images/projects/golf-apparel.png",
-      description:
-        "Polos, shorts, pants, caps; first order ~3,000 pcs (~300 per color/design); samples 2–3 weeks; production 4–8 weeks; custom paper box & foil garment wrap; in-line QC + pre-shipment AQL; DDP available.",
+      title:"Golf Apparel Startup",
+      location:"Dubai (Confidential)",
+      meta:"2025 • Fashion • Activewear",
+      image:"/images/projects/golf-apparel.png",
+      description:"Polos, shorts, pants, caps; first order ~3,000 pcs (~300 per color/design); samples 2–3 weeks; production 4–8 weeks; custom paper box & foil garment wrap; in-line QC + pre-shipment AQL; DDP available.",
     },
   ]
 
   return (
 
-    <section
-      ref={sectionRef}
-      className="bg-[#F3F2EF] pt-[8px]"
-    >
+    <section ref={sectionRef} className="bg-[#F3F2EF] pt-[8px]">
 
       <div className="px-[8px]">
 
-        <div className="border border-[#D6D1C8] rounded-2xl  ">
+        <div className="border border-[#D6D1C8] rounded-2xl">
 
           <div className="max-w-[1600px] mx-auto px-6 md:px-10 xl:px-16 py-24 md:py-28">
 
+
             {/* HEADER */}
 
-            <div className="projects-header  mb-20 md:mb-28 text-center">
+            <div className="projects-header mb-20 md:mb-28 text-center">
 
-              <div className="inline-flex  items-center border border-[#8C7A5B]/40 text-[#8C7A5B] px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium mb-6">
+              <div className="inline-flex items-center border border-[#8C7A5B]/40 text-[#8C7A5B] px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium mb-6">
                 Projects
               </div>
 
-              <h2 className="text-[32px] sm:text-[36px] md:text-[42px] leading-[1.1] tracking-[-0.015em] font-medium text-neutral-900">
+              <h2 className="text-[34px] sm:text-[36px] md:text-[40px] leading-[1.1] tracking-[-0.015em] font-normal text-neutral-900">
                 Selected Fashion Production
               </h2>
 
             </div>
 
+
             <div className="space-y-[8px]">
 
-              {projects.map((project, index) => (
+              {projects.map((project,index)=>(
 
-                <div
-                  key={project.title}
-                  className="project-block grid grid-cols-1 md:grid-cols-12 gap-[8px] items-stretch"
-                >
+                <div key={project.title} className="project-block grid grid-cols-1 md:grid-cols-12 gap-[8px] items-stretch">
+
 
                   {/* IMAGE */}
 
-                  <div
-                    className={`project-image md:col-span-4 ${
-                      index % 2 === 0 ? "md:order-2" : ""
-                    }`}
-                  >
+                  <div className={`project-image md:col-span-4 ${index%2===0 ? "md:order-2":""}`}>
 
                     <div className="border border-[#D6D1C8] rounded-2xl overflow-hidden h-full bg-white">
 
                       <div className="aspect-[4/3] md:aspect-[3/4] overflow-hidden">
 
-                        <img
-                          src={project.image}
-                          alt={project.title}
-                          className="w-full h-full object-cover"
-                        />
+                        <img src={project.image} alt={project.title} className="w-full h-full object-cover"/>
 
                       </div>
 
@@ -1739,37 +1560,30 @@ function Projects() {
 
                   </div>
 
+
                   {/* TEXT */}
 
-                  <div
-                    className={`project-text md:col-span-8 ${
-                      index % 2 === 0 ? "md:order-1" : ""
-                    }`}
-                  >
+                  <div className={`project-text md:col-span-8 ${index%2===0 ? "md:order-1":""}`}>
 
                     <div className="border border-[#D6D1C8] rounded-2xl h-full flex items-center bg-white">
 
                       <div className="px-8 sm:px-12 md:px-16 xl:px-20 py-12 md:py-16 max-w-[640px]">
 
-                        <div className="inline-flex items-center border border-neutral-300 px-4 py-1.5 rounded-full text-xs tracking-widest uppercase font-medium text-neutral-600 mb-6 md:mb-10">
-                          {String(index + 1).padStart(2, "0")}
+                        <div className="text-xs tracking-[0.18em] uppercase text-neutral-400 mb-4">
+                          {String(index+1).padStart(2,"0")}
                         </div>
 
-                        <div className="text-sm text-neutral-500 mb-4">
-                          {project.meta}
-                        </div>
-
-                        <h3 className="text-[28px] sm:text-[32px] md:text-[36px] xl:text-[40px] leading-[1.05] font-medium tracking-[-0.015em] text-neutral-900 mb-6">
+                        <h3 className="text-[24px] sm:text-[26px] md:text-[28px] leading-[1.2] tracking-[-0.015em] font-medium text-neutral-900 mb-5">
                           {project.title}
                         </h3>
 
-                        <p className="text-[16px] md:text-[18px] leading-[1.8] text-neutral-600 mb-8 md:mb-10">
+                        <p className="text-[16px] leading-[1.7] text-neutral-600 mb-6">
                           {project.description}
                         </p>
 
-                        <button className="inline-flex items-center gap-2 border border-neutral-300 px-6 md:px-8 py-2.5 md:py-3 rounded-full text-sm font-medium text-neutral-800 hover:bg-neutral-100 transition">
-                          View Case Study →
-                        </button>
+                        <div className="text-[13px] tracking-wide text-neutral-500">
+                          {project.meta}
+                        </div>
 
                       </div>
 
@@ -2234,129 +2048,107 @@ function Testimonials() {
  
 
 function FAQ() {
+
   const faqs = [
-    {
-      q: "Are you the manufacturer?",
-      a: "Yes. Your order is produced on our lines in China under our PI, QC, and warranty.",
-    },
-    {
-      q: "What MOQs do you work with?",
-      a: "Typical first runs are 150–200 pcs per color per style. Final MOQs are confirmed by style and material in your PI.",
-    },
-    {
-      q: "How fast are samples and production?",
-      a: "Samples usually take 2–3 weeks after specification confirmation. Production typically runs 4–8 weeks depending on style and material.",
-    },
-    {
-      q: "Do you help with tech packs and size charts?",
-      a: "Yes. We prepare editable size charts, support tech packs, and share measurement photos and videos during each sample round.",
-    },
-    {
-      q: "How do you ensure quality?",
-      a: "We conduct in-line QC during production and a pre-shipment AQL inspection with a full report and visual documentation.",
-    },
-    {
-      q: "Can you ship door-to-door?",
-      a: "Yes. We offer DDP with customs clearance, or EXW/FOB if you prefer to use your own forwarder.",
-    },
-    {
-      q: "What are your standard payment terms?",
-      a: "50% deposit and 50% pre-shipment (adjustable). Final terms are confirmed in your PI.",
-    },
-    {
-      q: "Can I visit the factory?",
-      a: "Absolutely. China factory tours are available by appointment, or live video inspections can be arranged anytime.",
-    },
+    {q:"Are you the manufacturer?",a:"Yes. Your order is produced on our lines in China under our PI, QC, and warranty."},
+    {q:"What MOQs do you work with?",a:"Typical first runs are 150–200 pcs per color per style. Final MOQs are confirmed by style and material in your PI."},
+    {q:"How fast are samples and production?",a:"Samples usually take 2–3 weeks after specification confirmation. Production typically runs 4–8 weeks depending on style and material."},
+    {q:"Do you help with tech packs and size charts?",a:"Yes. We prepare editable size charts, support tech packs, and share measurement photos and videos during each sample round."},
+    {q:"How do you ensure quality?",a:"We conduct in-line QC during production and a pre-shipment AQL inspection with a full report and visual documentation."},
+    {q:"Can you ship door-to-door?",a:"Yes. We offer DDP with customs clearance, or EXW/FOB if you prefer to use your own forwarder."},
+    {q:"What are your standard payment terms?",a:"50% deposit and 50% pre-shipment (adjustable). Final terms are confirmed in your PI."},
+    {q:"Can I visit the factory?",a:"Absolutely. China factory tours are available by appointment, or live video inspections can be arranged anytime."},
   ]
 
-  const [open, setOpen] = React.useState(null)
+  const [open,setOpen]=React.useState(null)
 
   return (
-    <section className="bg-[#F3F2EF] pt-22">
-      <div className="max-w-[1600px] border bor mx-auto px-10 xl:px-16">
 
-        <div className="grid grid-cols-1 md:grid-cols-[0.45fr_0.55fr] gap-20">
+    <section className="bg-[#F3F2EF] pt-[8px]">
 
-          {/* LEFT */}
-          <div>
+      <div className="px-[8px]">
 
-            {/* PONI */} 
-            <div className="pc-label inline-flex items-center border border-[#8C7A5B]/40 text-[#8C7A5B] px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium  mb-5 md:mb-6 ">
-            FAQ
+
+          <div className="max-w-[1600px] mx-auto px-6 md:px-10 xl:px-16 py-24 md:py-28">
+
+            <div className="grid grid-cols-1 md:grid-cols-[0.45fr_0.55fr] gap-20">
+
+              {/* LEFT */}
+
+              <div>
+
+                <div className="inline-flex items-center border border-[#8C7A5B]/40 text-[#8C7A5B] px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium mb-6">
+                  FAQ
+                </div>
+
+                <h2 className="text-[34px] sm:text-[36px] md:text-[40px] leading-[1.1] tracking-[-0.015em] font-normal text-neutral-900">
+                  Frequently Asked<br/>Questions
+                </h2>
+
+              </div>
+
+
+              {/* RIGHT */}
+
+              <div>
+
+                {faqs.map((item,i)=>{
+
+                  const isOpen=open===i
+
+                  return(
+
+                    <div key={i} className="border-b border-neutral-200">
+
+                      <button onClick={()=>setOpen(isOpen?null:i)} className="w-full flex items-center justify-between text-left py-6">
+
+                        <span className="text-[18px] text-neutral-900 leading-[1.4] pr-10">
+                          {item.q}
+                        </span>
+
+                        <Plus size={20} strokeWidth={1.75} className={`shrink-0 transition-all duration-300 ${isOpen?"rotate-45 text-neutral-900":"rotate-0 text-neutral-400"}`} />
+
+                      </button>
+
+                      <div className={`overflow-hidden transition-all duration-300 ${isOpen?"max-h-40 pb-6":"max-h-0"}`}>
+
+                        <p className="text-[16px] leading-[1.7] text-neutral-600 pr-10">
+                          {item.a}
+                        </p>
+
+                      </div>
+
+                    </div>
+
+                  )
+
+                })}
+
+              </div>
+
             </div>
 
-            {/* H2 */}
-            <h2 className="text-[42px] leading-[1.1] tracking-[-0.015em] font-medium text-neutral-900">
-              Frequently Asked
-              <br />
-              Questions
-            </h2>
-
           </div>
 
-          {/* RIGHT LIST */}
-          <div>
-
-            {faqs.map((item, i) => {
-              const isOpen = open === i
-
-              return (
-                <div key={i} className="border-b border-neutral-200">
-
-                  <button
-                    onClick={() => setOpen(isOpen ? null : i)}
-                    className="w-full flex items-center justify-between text-left py-6"
-                  >
-                    <span className="text-[18px] text-neutral-900 leading-[1.4] pr-10">
-                      {item.q}
-                    </span>
-
-                    <Plus
-                      size={20}
-                      strokeWidth={1.75}
-                      className={`shrink-0 transition-all duration-300 ${
-                        isOpen
-                          ? "rotate-45 text-neutral-900"
-                          : "rotate-0 text-neutral-400"
-                      }`}
-                    />
-                  </button>
-
-                  <div
-                    className={`overflow-hidden transition-all duration-300 ${
-                      isOpen ? "max-h-40 pb-6" : "max-h-0"
-                    }`}
-                  >
-                    <p className="text-[16px] leading-[1.7] text-neutral-600 pr-10">
-                      {item.a}
-                    </p>
-                  </div>
-
-                </div>
-              )
-            })}
-
-          </div>
-
-        </div>
 
       </div>
+
     </section>
+
   )
+
 }
 
 
 function Footer() {
   return (
-    <div className="relative bg-[#F3F2EF] pt-28 overflow-visible">
+    <div className="relative bg-[#F3F2EF] pt-20 md:pt-28 overflow-visible">
 
       {/* =====================================================
           CTA SECTION
       ===================================================== */}
-      <div className="max-w-[1600px] mx-auto px-10 xl:px-16">
-        <div
-          className="relative z-20 rounded-2xl overflow-hidden min-h-[560px] flex items-end shadow-[0_30px_80px_rgba(0,0,0,0.35),0_10px_25px_rgba(0,0,0,0.2)]"
-        >
+      <div className="max-w-[1600px] mx-auto px-6 sm:px-10 xl:px-16">
+        <div className="relative z-20 rounded-2xl overflow-hidden min-h-[420px] md:min-h-[560px] flex items-end shadow-[0_25px_60px_rgba(0,0,0,0.25)]">
           
           {/* Image */}
           <img
@@ -2365,26 +2157,25 @@ function Footer() {
             className="absolute inset-0 w-full h-full object-cover"
           />
 
-          {/* Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/45 to-black/20" />
+<div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/45 to-black/20" />
 
           {/* Content */}
-          <div className="relative z-10 w-full px-10 xl:px-16 pb-24 pt-32 grid md:grid-cols-[1.3fr_1fr] items-end">
+          <div className="relative z-10 w-full px-6 sm:px-10 xl:px-16 pb-16 md:pb-24 pt-20 md:pt-32 grid gap-12 md:gap-0 md:grid-cols-[1.3fr_1fr] items-end">
             
             {/* Left */}
             <div className="max-w-3xl text-white">
-              <h2 className="text-[48px] md:text-[60px] xl:text-[70px] font-normal leading-[1.05] tracking-[-0.02em]">
+              <h2 className="text-[34px] sm:text-[42px] md:text-[60px] xl:text-[70px] font-normal leading-[1.05] tracking-[-0.02em]">
                 Ready to Move at Global Scale?
               </h2>
             </div>
 
             {/* Right */}
-            <div className="md:ml-auto max-w-sm text-white/85 mt-10 md:mt-0">
-              <p className="mb-8 text-[18px] leading-relaxed">
+            <div className="md:ml-auto max-w-sm text-white/85">
+              <p className="mb-8 text-[16px] md:text-[18px] leading-[1.7]">
                 End-to-end execution covering production, inspection, and international delivery.
               </p>
 
-              <button className="flex items-center gap-3 bg-white text-black px-8 py-3.5 rounded-lg text-sm font-medium transition hover:bg-neutral-200">
+              <button className="flex items-center gap-3 bg-white text-black px-7 py-3 rounded-lg text-sm font-medium transition hover:bg-neutral-200">
                 Contact Us
                 <span className="w-7 h-7 flex items-center justify-center rounded-full bg-black text-white text-sm">
                   →
@@ -2399,7 +2190,7 @@ function Footer() {
       {/* =====================================================
           FOOTER OVERLAP WRAPPER
       ===================================================== */}
-       <div className="relative -mt-[168px] pt-[228px] z-10">
+      <div className="relative -mt-[80px] md:-mt-[168px] pt-[140px] md:pt-[228px] z-10">
 
         {/* DARK GRADIENT BACKGROUND */}
         <div
@@ -2412,35 +2203,35 @@ function Footer() {
         {/* =====================================================
             FOOTER SECTION
         ===================================================== */}
-        <footer className="relative max-w-[1600px] mx-auto px-10 xl:px-16 pb-24 text-white">
+        <footer className="relative max-w-[1600px] mx-auto px-6 sm:px-10 xl:px-16 pb-20 md:pb-24 text-white">
          
           {/* Main Grid */}
-          <div className="grid md:grid-cols-4 gap-20 border-b border-white/10 pb-20">
+          <div className="grid gap-14 md:gap-20 md:grid-cols-4 border-b border-white/10 pb-16 md:pb-20">
             
             {/* Brand */}
             <div>
               <h3 className="text-lg font-medium mb-8">
                 Al-Raimi Group
               </h3>
-
               <div className="flex gap-4">
-                {[
-                  "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg",
-                  "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg",
-                  "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg",
-                ].map((icon, i) => (
-                  <div
-                    key={i}
-                    className="group w-10 h-10 rounded-lg border border-white/20 flex items-center justify-center transition hover:bg-white hover:border-white cursor-pointer"
-                  >
-                    <img
-                      src={icon}
-                      alt="social"
-                      className="w-4 h-4 opacity-70 transition group-hover:opacity-100"
-                    />
-                  </div>
-                ))}
-              </div>
+  {[
+    "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg",
+    "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg",
+    "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg",
+  ].map((icon, i) => (
+    <div
+      key={i}
+      className="group w-10 h-10 rounded-lg border border-neutral-500 flex items-center justify-center transition hover:bg-neutral-100 hover:border-neutral-300 cursor-pointer"
+    >
+      <img
+        src={icon}
+        alt="social"
+        className="w-4 h-4 opacity-60 transition group-hover:opacity-100"
+        style={{ filter: "invert(1)" }}
+      />
+    </div>
+  ))}
+</div>
             </div>
 
             {/* Company */}
@@ -2492,8 +2283,8 @@ function Footer() {
           </div>
 
           {/* Bottom Bar */}
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6 mt-12 text-sm text-white/40">
-            <p>© {new Date().getFullYear()} Al-Raimi Group. All rights reserved.</p>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6 mt-10 md:mt-12 text-sm text-white/40">
+            <p>© {new Date().getFullYear()} ALRAIMI BUSSINESS GROUP. All rights reserved.</p>
 
             <div className="flex gap-8">
               <span className="hover:text-white transition cursor-pointer">
