@@ -248,11 +248,11 @@ export async function POST(req) {
     const html = buildHTML(data, uploaded)
 
     await resend.emails.send({
-      from: "Inquiry <onboarding@resend.dev>",
+      from: "Alraimi Website <noreply@alraimigroup.com>",
       to: ["hello@alraimigroup.com"],
       subject: "New Production Inquiry",
       html,
-      reply_to: data.email,
+      replyTo: data.email,
     })
 
     return NextResponse.json({ success: true })
