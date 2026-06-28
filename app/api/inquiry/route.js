@@ -8,8 +8,6 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET,
 })
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 const sanitize = (v = "") =>
   !v ? "" : String(v).replace(/</g, "&lt;").replace(/>/g, "&gt;").trim()
 
@@ -206,6 +204,15 @@ function checkRateLimit(ip) {
 
 export async function POST(req) {
   try {
+    if (!process.env.RESEND_API_KEY) {
+      console.error("Missing RESEND_API_KEY")
+      return NextResponse.json(
+        { error: "Email service is not configured" },
+        { status: 500 }
+      )
+    }
+
+    const resend = new Resend(process.env.RESEND_API_KEY)
     const ip = req.headers.get("x-forwarded-for") || "unknown"
 
     if (!checkRateLimit(ip)) {

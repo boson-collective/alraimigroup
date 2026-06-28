@@ -91,12 +91,11 @@ Run:
 
 Create `.env.local`:
 
-EMAIL_TO=contact@alraimigroup.com\
-EMAIL_FROM=noreply@alraimigroup.com\
-SMTP_HOST=smtp.example.com\
-SMTP_PORT=587\
-SMTP_USER=username\
-SMTP_PASS=password
+RESEND_API_KEY=re_xxx\
+CLOUDINARY_NAME=cloud_name\
+CLOUDINARY_KEY=api_key\
+CLOUDINARY_SECRET=api_secret\
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
 
 ------------------------------------------------------------------------
 
@@ -113,22 +112,13 @@ Fields:
 -   name
 -   email
 -   company
--   message
-
-## PI Request
-
-`/api/pi-request`
-
-Handles production quote requests.
-
-Fields:
-
--   name
--   company
--   email
--   product category
+-   projectType
+-   productName
+-   specs
 -   quantity
--   timeline
+-   orderTimeline
+-   deadline
+-   destination
 -   notes
 
 ------------------------------------------------------------------------

@@ -128,7 +128,7 @@ function Hero() {
       <div className="px-[8px]">
 
         <div
-          className="border border-neutral-200 rounded-2xl overflow-hidden text-white"
+          className="border border-white/10 rounded-2xl overflow-hidden text-white"
           style={{ background: "linear-gradient(135deg,#191919 0%,#2C2C2C 100%)" }}
         >
 
@@ -226,8 +226,8 @@ function Hero() {
                 <div className="fade-up mt-8 flex flex-col sm:flex-row items-start gap-4 sm:gap-8">
 
                   <Link
-                    href="/contact#start-your-brand"
-                    className="inline-flex items-center bg-white text-black px-8 py-3.5 rounded-lg text-sm font-medium transition hover:bg-neutral-200"
+                    href="/contact#start-brand"
+                    className="inline-flex items-center justify-center bg-white text-black px-8 py-3.5 rounded-lg text-sm font-medium transition hover:bg-neutral-200"
                   >
                     Start Your Brand
                   </Link>
@@ -283,7 +283,7 @@ function About() {
 
           {/* LEFT CARD */}
 
-          <div className="bg-white border border-[#DDD7CE] rounded-2xl px-8 sm:px-12 md:px-16 xl:px-20 py-12 md:py-16 xl:py-20 text-center md:text-left">
+          <div className="bg-white border border-[#D6D1C8] rounded-2xl px-8 sm:px-12 md:px-16 xl:px-20 py-12 md:py-16 xl:py-20 text-center md:text-left">
 
             <div className="inline-flex items-center border border-[#8C7A5B]/40 text-[#8C7A5B] px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium mb-6">
               OVERVIEW
@@ -295,14 +295,14 @@ function About() {
               <span>Built for Consistency</span>
             </h2>
 
-            <div className="mt-6 h-[1px] w-24 bg-[#DDD7CE] mx-auto md:mx-0"></div>
+            <div className="mt-6 h-[1px] w-24 bg-[#D6D1C8] mx-auto md:mx-0"></div>
 
           </div>
 
 
           {/* RIGHT CARD */}
 
-          <div className="bg-white border border-[#DDD7CE] rounded-2xl px-8 sm:px-12 md:px-16 xl:px-20 py-12 md:py-16 xl:py-20 flex items-center">
+          <div className="bg-white border border-[#D6D1C8] rounded-2xl px-8 sm:px-12 md:px-16 xl:px-20 py-12 md:py-16 xl:py-20 flex items-center">
 
             <div className="text-[16px] sm:text-[17px] md:text-[18px] leading-[1.7] text-neutral-700 max-w-[520px]">
 
@@ -519,9 +519,9 @@ function ProductCategories() {
 
             <div className="categories-cta mt-16 md:mt-20 flex justify-center">
 
-              <button className="bg-white text-black px-8 py-3.5 rounded-lg text-sm font-medium border border-neutral-300 hover:bg-neutral-100 transition">
+              <Link href="/contact#get-pi" className="inline-flex items-center justify-center bg-white text-black px-8 py-3.5 rounded-lg text-sm font-medium border border-neutral-300 hover:bg-neutral-100 transition">
                 Get Your PI
-              </button>
+              </Link>
 
             </div>
 

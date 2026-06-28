@@ -29,7 +29,7 @@ export default function Footer() {
 
               <Link
                 href="/contact#start-brand"
-                className="inline-flex items-center gap-3 bg-white text-black px-7 py-3 rounded-lg text-sm font-medium transition hover:bg-neutral-200"
+                className="inline-flex items-center justify-center gap-3 bg-white text-black px-8 py-3.5 rounded-lg text-sm font-medium transition hover:bg-neutral-200"
               >
                 Start Your Brand
                 <span className="w-7 h-7 flex items-center justify-center rounded-full bg-black text-white text-sm">

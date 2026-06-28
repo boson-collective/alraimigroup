@@ -137,7 +137,7 @@ function Hero() {
 {/* CTA */}
 <Link
   href="/contact#get-pi"
-  className="hidden md:inline-flex items-center gap-2 px-7 py-3 rounded-lg text-sm font-medium bg-black text-white hover:bg-[#7A6A4E] transition"
+  className="hidden md:inline-flex items-center gap-2 px-7 py-3 rounded-lg text-sm font-medium bg-[#8C7A5B] text-white hover:bg-[#7A6A4E] transition"
 >
   Get Your PI
   <FaArrowRight className="text-xs" />
@@ -270,8 +270,7 @@ function Hero() {
 
                 <Link
                   href="/contact#start-brand"
-                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg text-sm font-medium text-white transition"
-                  style={{ backgroundColor: "#8C7A5B" }}
+                  className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-lg text-sm font-medium bg-[#8C7A5B] text-white transition hover:bg-[#7A6A4E]"
                 >
                   Start Your Brand
                   <FaArrowRight className="text-xs" />
@@ -511,13 +510,13 @@ function InquiryForm() {
 
               {/* LEFT (UNCHANGED) */}
               <div className="max-w-[520px]">
-                <div className="mb-8">
-                  <div className="inline-flex border border-[#8C7A5B]/40 text-[#8C7A5B] px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase">
+                <div>
+                  <div className="inline-flex items-center border border-[#8C7A5B]/40 text-[#8C7A5B] px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium mb-6">
                     START YOUR BRAND
                   </div>
                 </div>
 
-                <h2 className="text-[40px] leading-[1.1] text-neutral-900 mb-6">
+                <h2 className="text-[40px] leading-[1.1] tracking-[-0.015em] text-neutral-900 mb-6">
                   Production Inquiry
                 </h2>
 
@@ -539,7 +538,7 @@ function InquiryForm() {
                 {/* HEADER */}
                 <div className="mb-10 flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl border border-neutral-300 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-lg border border-neutral-300 flex items-center justify-center">
                       0{step}
                     </div>
                     <div>
@@ -707,11 +706,11 @@ function InquiryForm() {
                   )}
 
                   {step < 4 ? (
-                    <button onClick={next} className="ml-auto bg-black text-white px-6 py-3 rounded-lg">
+                    <button onClick={next} className="ml-auto bg-black text-white px-8 py-3.5 rounded-lg text-sm font-medium hover:bg-neutral-800 transition">
                       Continue →
                     </button>
                   ) : (
-                    <button onClick={handleSubmit} className="ml-auto bg-[#8C7A5B] text-white px-6 py-3 rounded-lg">
+                    <button onClick={handleSubmit} className="ml-auto bg-[#8C7A5B] text-white px-8 py-3.5 rounded-lg text-sm font-medium hover:bg-[#7A6A4E] transition">
                       {loading ? "Sending..." : "Submit Inquiry"}
                     </button>
                   )}
@@ -730,7 +729,7 @@ function InquiryForm() {
         .input {
           width: 100%;
           border: 1px solid #d4d4d4;
-          border-radius: 10px;
+          border-radius: 8px;
           padding: 12px 14px;
           font-size: 14px;
           outline: none;
@@ -944,7 +943,7 @@ function GetYourPI() {
 
               <div className="mb-10 flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl border border-neutral-300 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-lg border border-neutral-300 flex items-center justify-center">
                     0{step}
                   </div>
                   <div>
@@ -1106,11 +1105,11 @@ function GetYourPI() {
                 )}
 
                 {step < 4 ? (
-                  <button onClick={next} className="ml-auto bg-black text-white px-6 py-3 rounded-lg">
+                  <button onClick={next} className="ml-auto bg-black text-white px-8 py-3.5 rounded-lg text-sm font-medium hover:bg-neutral-800 transition">
                     Continue →
                   </button>
                 ) : (
-                  <button onClick={handleSubmit} className="ml-auto bg-[#8C7A5B] text-white px-6 py-3 rounded-lg">
+                  <button onClick={handleSubmit} className="ml-auto bg-[#8C7A5B] text-white px-8 py-3.5 rounded-lg text-sm font-medium hover:bg-[#7A6A4E] transition">
                     {loading ? "Sending..." : "Submit PI"}
                   </button>
                 )}
@@ -1128,7 +1127,7 @@ function GetYourPI() {
         .input {
           width: 100%;
           border: 1px solid #d4d4d4;
-          border-radius: 10px;
+          border-radius: 8px;
           padding: 12px 14px;
           font-size: 14px;
           outline: none;

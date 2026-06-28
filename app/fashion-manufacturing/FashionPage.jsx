@@ -249,7 +249,7 @@ function Hero() {
 
                 <Link
                   href="/contact#start-brand"
-                  className="inline-flex items-center gap-2 bg-black text-white px-7 py-3 rounded-lg text-sm font-medium transition hover:bg-neutral-800"
+                  className="inline-flex items-center justify-center gap-2 bg-black text-white px-8 py-3.5 rounded-lg text-sm font-medium transition hover:bg-neutral-800"
                 >
                   Start Your Brand
                   <FaArrowRight className="text-xs" />
@@ -427,7 +427,7 @@ function ProductCategories() {
 
                   <div key={category.title} className={`pc-card ${position}`}>
 
-                    <div className="relative w-full aspect-[4/3] md:aspect-square rounded-xl overflow-hidden border border-neutral-200 mb-4 md:mb-5">
+                    <div className="relative w-full aspect-[4/3] md:aspect-square rounded-2xl overflow-hidden border border-neutral-200 mb-4 md:mb-5">
 
                       <Image
                         src={cloudinaryTransform(category.image)}
@@ -462,7 +462,7 @@ function ProductCategories() {
 
               <Link
                 href="/contact#start-brand"
-                className="pc-cta bg-white text-black px-8 py-3.5 rounded-lg text-sm font-medium border border-neutral-300 hover:bg-neutral-100 transition"
+                className="pc-cta inline-flex items-center justify-center bg-white text-black px-8 py-3.5 rounded-lg text-sm font-medium border border-neutral-300 hover:bg-neutral-100 transition"
               >
                 Start Your Brand
               </Link>
@@ -981,7 +981,7 @@ function Gallery() {
 
         {/* HEADER */}
         <div className="flex justify-center mb-24">
-          <div className="inline-flex items-center border border-neutral-300 px-5 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium text-neutral-700">
+          <div className="inline-flex items-center border border-[#8C7A5B]/40 text-[#8C7A5B] px-4 py-1 rounded-md text-xs tracking-[0.18em] uppercase font-medium">
             Gallery
           </div>
         </div>

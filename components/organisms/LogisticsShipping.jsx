@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react"
+import Link from "next/link"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
@@ -69,9 +70,9 @@ export default function LogisticsShipping() {
 
             <div className="mt-12 flex justify-center md:justify-start">
 
-              <button className="px-8 py-3.5 rounded-lg text-sm font-medium bg-white text-black hover:bg-neutral-200 transition">
+              <Link href="/contact#get-pi" className="inline-flex items-center justify-center px-8 py-3.5 rounded-lg text-sm font-medium bg-white text-black hover:bg-neutral-200 transition">
                 Get Your PI
-              </button>
+              </Link>
 
             </div>
 

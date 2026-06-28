@@ -951,9 +951,16 @@ function HowWeWork() {
 
   useEffect(() => {
     if (!emblaApi) return
-    setScrollSnaps(emblaApi.scrollSnapList())
+    const frame = requestAnimationFrame(() => {
+      setScrollSnaps(emblaApi.scrollSnapList())
+      onSelect()
+    })
     emblaApi.on("select", onSelect)
-    onSelect()
+
+    return () => {
+      cancelAnimationFrame(frame)
+      emblaApi.off("select", onSelect)
+    }
   }, [emblaApi, onSelect])
 
   useEffect(() => {
@@ -1662,7 +1669,7 @@ function Projects() {
 
 {/* RIGHT */}
 <div className="md:pt-[42px] text-[15px] sm:text-[18px] leading-[1.7] text-neutral-600 max-w-xl">
-  A look at fashion and packaging projects we've produced. From early development and sampling to final delivery.
+  A look at fashion and packaging projects we&apos;ve produced. From early development and sampling to final delivery.
 </div>
 
 </div>
@@ -1994,7 +2001,7 @@ function Gallery() {
               <img
                 src={item.src}
                 alt={item.alt}
-                className="w-full h-[220px] md:h-[320px] object-cover rounded-xl"
+                className="w-full h-[220px] md:h-[320px] object-cover rounded-2xl"
                 loading="lazy"
               />
 
@@ -2159,7 +2166,7 @@ function Testimonials() {
 
                 {/* QUOTE */}
                 <p className="text-[16px] leading-[1.6] text-[#2C2C2C] mb-6">
-                  "{active.quote}"
+                  &ldquo;{active.quote}&rdquo;
                 </p>
 
                 {/* DIVIDER + PROFILE */}
@@ -2254,7 +2261,7 @@ function Testimonials() {
                 </div>
 
                 <p className="text-[18px] lg:text-[20px] leading-[1.6] text-[#2C2C2C] max-w-[560px]">
-                  "{active.quote}"
+                  &ldquo;{active.quote}&rdquo;
                 </p>
 
               </motion.div>
